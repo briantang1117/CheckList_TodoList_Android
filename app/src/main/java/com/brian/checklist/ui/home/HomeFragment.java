@@ -35,8 +35,8 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 20; i++) {
             Map<String, Object> map=new HashMap<String, Object>();
             map.put("image", R.drawable.ic_searchicon);
-            map.put("title", "这是一个标题"+i);
-            map.put("info", "这是一个详细信息" + i);
+            map.put("title", "菜单标题 "+ i);
+            map.put("info", "详细信息 " + i);
             list.add(map);
         }
         return list;

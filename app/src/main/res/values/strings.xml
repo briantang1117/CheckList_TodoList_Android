@@ -3,4 +3,5 @@
     <string name="app_name_cn">CheckList 清单</string>
     <string name="title_home">清单</string>
     <string name="title_setting">设置</string>
+    <string name="NaN">NaNNaNNaN</string>
 </resources>
