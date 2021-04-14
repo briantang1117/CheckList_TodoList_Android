@@ -15,10 +15,13 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MyDatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //底部导航栏
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //数据库初始化
+        dbHelper = new MyDatabaseHelper(this,"ListDatabase.db",null,1);
+        dbHelper.getWritableDatabase();
     }
 
 }

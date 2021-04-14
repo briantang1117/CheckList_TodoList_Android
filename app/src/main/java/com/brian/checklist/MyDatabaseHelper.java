@@ -7,14 +7,20 @@ import android.widget.Toast;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String CREATE_BOOK = "create table Book(" +
+    public static final String CREATE_List = "create table List(" +
             //primary key 将id列设为主键    autoincrement表示id列是自增长的
             "id integer primary key autoincrement," +
-            "author text," +
-            "price real," +
-            "name text)";
+            "listname text," +
+            "countAll integer," +
+            "countFinish integer," +
+            "status integer)";
 
-
+    public static final String CREATE_Content = "create table Content(" +
+            //primary key 将id列设为主键    autoincrement表示id列是自增长的
+            "id integer primary key autoincrement," +
+            "isFinish integer," +
+            "content text," +
+            "listname text)";
 
     private final Context mContext;
 
@@ -27,7 +33,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //调用SQLiteDatabase中的execSQL（）执行建表语句。
-        db.execSQL(CREATE_BOOK);
+        db.execSQL(CREATE_List);
+        db.execSQL(CREATE_Content);
         //创建成功
         Toast.makeText(mContext, "初始化清单成功", Toast.LENGTH_SHORT).show();
     }
