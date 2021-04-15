@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="load_icon">
+        <item>@drawable/ic_load_00</item>
+        <item>@drawable/ic_load_10</item>
+        <item>@drawable/ic_load_20</item>
+        <item>@drawable/ic_load_30</item>
+        <item>@drawable/ic_load_40</item>
+        <item>@drawable/ic_load_50</item>
+        <item>@drawable/ic_load_60</item>
+        <item>@drawable/ic_load_70</item>
+        <item>@drawable/ic_load_80</item>
+        <item>@drawable/ic_load_90</item>
+        <item>@drawable/ic_load_100</item>
+    </string-array>
+</resources>

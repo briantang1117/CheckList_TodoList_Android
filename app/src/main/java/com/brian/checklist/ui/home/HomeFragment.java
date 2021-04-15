@@ -1,5 +1,6 @@
 package com.brian.checklist.ui.home;
 
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
 
     public List<Map<String, Object>> getData(){
         List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+        TypedArray load_icon = getResources().obtainTypedArray(R.array.load_icon);
         dbHelper = new MyDatabaseHelper(getContext(),"ListDatabase.db",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -54,14 +56,14 @@ public class HomeFragment extends Fragment {
                 int status = listList.getInt(listList.getColumnIndex("status"));
                 int countAll = listList.getInt(listList.getColumnIndex("countAll"));
                 int countFinish = listList.getInt(listList.getColumnIndex("countFinish"));
-                int load = countAll/countFinish;
+                int load = countFinish*100/countAll;
               //  Log.d("MainActivity","list name is "+name);
               //  Log.d("MainActivity","list ststus is "+status);
 
                 Map<String, Object> map=new HashMap<String, Object>();
-                map.put("image", "@drawable/ic_load"+String.valueOf(load));
+                map.put("image", load_icon.getResourceId(load/10, 0));
                 map.put("title", name);
-                map.put("info", String.valueOf(countFinish)+"完成  "+String.valueOf(countAll-countFinish)+"待办");
+                map.put("info", String.valueOf(countFinish)+"完成  "+String.valueOf(countAll-countFinish)+"待办 "+String.valueOf(load)+"%");
                 list.add(map);
 
             }while(listList.moveToNext());

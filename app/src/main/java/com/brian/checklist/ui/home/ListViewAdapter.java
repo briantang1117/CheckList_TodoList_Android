@@ -1,6 +1,7 @@
 package com.brian.checklist.ui.home;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,8 @@ public class ListViewAdapter extends BaseAdapter {
             zujian=(Zujian)convertView.getTag();
         }
         //绑定数据
-        zujian.image.setImageResource((Integer)data.get(position).get("image"));
+
+        zujian.image.setImageResource((int)data.get(position).get("image"));
         zujian.title.setText((String)data.get(position).get("title"));
         zujian.info.setText((String)data.get(position).get("info"));
         return convertView;
