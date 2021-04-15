@@ -5,4 +5,6 @@
     <string name="title_setting">设置</string>
     <string name="NaN">NaNNaNNaN</string>
     <string name="add_list">添加清单</string>
+    <string name="addplaceholder">清单名称</string>
+    <string name="next">下一步</string>
 </resources>
