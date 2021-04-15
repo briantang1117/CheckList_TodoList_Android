@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckList">
+        <activity android:name=".AddListActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

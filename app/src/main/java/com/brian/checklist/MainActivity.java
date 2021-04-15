@@ -1,5 +1,7 @@
 package com.brian.checklist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
     private MyDatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //页面跳转
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AddListActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+                startActivity(intent);
+                overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
             }
         });
 
