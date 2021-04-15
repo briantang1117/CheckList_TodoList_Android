@@ -38,7 +38,6 @@ public class AddListActivity extends AppCompatActivity {
             values.put("status",0);
             db.insert("List",null,values);
             values.clear();
-            Toast.makeText(AddListActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
             AddListActivity.this.finish();
             overridePendingTransition(R.anim.no_anim,R.anim.trans_out_2);
         }
