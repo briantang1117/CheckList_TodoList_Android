@@ -1,9 +1,9 @@
 # CheckList_Android
 
-## 介绍
+## Introduction
 交互设计技术课程作业，使用 Android Studio 开发，一个类似于 Todo list 的工具类应用
 
-## 进度
+## Progress
 -  2021年4月6日
    -  学习约束布局
    -  学习并开发Fragment
@@ -20,3 +20,5 @@
    -  完成新建清单页面跳转及跳转动画
    -  完成新建清单功能
    -  初步完成listcontent页面跳转
+-  2021年4月16日
+   -  完成关于页面布局

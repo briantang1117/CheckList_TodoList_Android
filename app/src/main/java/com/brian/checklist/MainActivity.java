@@ -37,15 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         //新建清单按钮 FAB 定义
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //页面跳转
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, AddListActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
-            }
+        fab.setOnClickListener(view -> {
+            //页面跳转
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, about.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+            startActivity(intent);
+            overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
         });
 
         //数据库初始化
