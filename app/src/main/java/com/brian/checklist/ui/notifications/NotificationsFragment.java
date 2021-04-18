@@ -1,35 +1,34 @@
 package com.brian.checklist.ui.notifications;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.brian.checklist.R;
+import com.brian.checklist.about;
 
 public class NotificationsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
+
+        ConstraintLayout bt_about = root.findViewById(R.id.constraintLayout4_1);
+        bt_about.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), about.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
         });
+
         return root;
     }
 }

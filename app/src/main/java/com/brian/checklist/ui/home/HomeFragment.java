@@ -6,24 +6,15 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.brian.checklist.AddListActivity;
 import com.brian.checklist.ListContent;
-import com.brian.checklist.MainActivity;
 import com.brian.checklist.MyDatabaseHelper;
 import com.brian.checklist.R;
 
@@ -87,19 +78,16 @@ public class HomeFragment extends Fragment {
         datalist = getData();
         adapter = new ListViewAdapter(getActivity(), datalist);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListView lv = (ListView) parent;
-                HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
-                String listid = listinfo.get("id").toString();
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            ListView lv = (ListView) parent;
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            String listid = listinfo.get("id").toString();
 
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), ListContent.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
-                intent.putExtra("listid",listid);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
-            }
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), ListContent.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+            intent.putExtra("listid",listid);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
         });
 
         //Toast.makeText(getActivity(), "onStart", Toast.LENGTH_SHORT).show();

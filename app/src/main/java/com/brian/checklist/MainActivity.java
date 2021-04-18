@@ -1,19 +1,16 @@
 package com.brian.checklist;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             //页面跳转
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, about.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+            intent.setClass(MainActivity.this, AddListActivity.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
             startActivity(intent);
             overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
         });
