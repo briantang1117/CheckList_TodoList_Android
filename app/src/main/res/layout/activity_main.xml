@@ -42,7 +42,9 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_plus_24"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        android:clickable="true"
+        android:focusable="true" />
 
 
 
