@@ -33,8 +33,8 @@ public class AddListActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         if (listNameInput.getText().toString().length() != 0) {
             values.put("listname",listNameInput.getText().toString());
-            values.put("countAll",0);
-            values.put("countFinish",0);
+            values.put("countAll",5);
+            values.put("countFinish",5);
             values.put("status",0);
             db.insert("List",null,values);
             values.clear();
