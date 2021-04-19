@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/app_name_cn"
+            android:text="@string/title_setting"
             android:textColor="@color/classicalBlue"
             android:textSize="21sp"
             android:textStyle="bold"
@@ -32,7 +32,9 @@
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextconstraintLayout">
+        app:layout_constraintTop_toBottomOf="@id/titleTextconstraintLayout"
+        android:paddingBottom="190dp"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,9 +120,11 @@
                     android:layout_marginRight="16dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout1_1"
+                        android:id="@+id/btn_Archive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -164,12 +168,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/E"
-                        app:layout_constraintTop_toBottomOf="@id/constraintLayout1_1" />
+                        app:layout_constraintTop_toBottomOf="@id/btn_Archive" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout1_2"
+                        android:id="@+id/btn_Trash"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/line1_1">
@@ -213,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/E"
-                        app:layout_constraintTop_toBottomOf="@id/constraintLayout1_2" />
+                        app:layout_constraintTop_toBottomOf="@id/btn_Trash" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

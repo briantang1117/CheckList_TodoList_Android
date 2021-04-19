@@ -1,12 +1,10 @@
-package com.brian.checklist.ui.home;
+package com.brian.checklist;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +13,12 @@ import java.util.Map;
 
 import com.brian.checklist.R;
 
-public class ListViewAdapter extends BaseAdapter {
+public class ListViewAdapterArchive extends BaseAdapter {
 
     private List<Map<String, Object>> data;
     private LayoutInflater layoutInflater;
     private Context context;
-    public ListViewAdapter(Context context,List<Map<String, Object>> data){
+    public ListViewAdapterArchive(Context context,List<Map<String, Object>> data){
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);
@@ -32,7 +30,6 @@ public class ListViewAdapter extends BaseAdapter {
     public final class Zujian{
         public ImageView image;
         public TextView title;
-        public Button view;
         public TextView info;
     }
     @Override
@@ -57,22 +54,18 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Zujian zujian=null;
+        Zujian zujian;
         if(convertView==null){
             zujian=new Zujian();
             //获得组件，实例化组件
-            convertView=layoutInflater.inflate(R.layout.home_list_item, null);
-            zujian.image=(ImageView)convertView.findViewById(R.id.image);
-            zujian.title=(TextView)convertView.findViewById(R.id.title);
-            //zujian.view=(Button)convertView.findViewById(R.id.view);
-            zujian.info=(TextView)convertView.findViewById(R.id.info);
+            convertView=layoutInflater.inflate(R.layout.archive_list_item, null);
+            zujian.title= convertView.findViewById(R.id.title);
+            zujian.info= convertView.findViewById(R.id.info);
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
         }
         //绑定数据
-
-        zujian.image.setImageResource((int)data.get(position).get("image"));
         zujian.title.setText((String)data.get(position).get("title"));
         zujian.info.setText((String)data.get(position).get("info"));
         return convertView;

@@ -12,4 +12,5 @@
     <color name="E">#EEEEEE</color>
     <color name="trash">#FF2D55</color>
     <color name="archive">#FF9500</color>
+    <color name="recover">#0084FF</color>
 </resources>

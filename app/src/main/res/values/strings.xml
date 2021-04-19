@@ -18,5 +18,6 @@
     <string name="setting_feedback">问题反馈</string>
     <string name="setting_share">应用分享</string>
     <string name="setting_about">关于 CheckList 清单</string>
+    <string name="clear_trash">清空回收站</string>
 
 </resources>

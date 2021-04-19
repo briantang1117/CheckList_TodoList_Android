@@ -1,6 +1,7 @@
 package com.brian.checklist;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ListContent extends AppCompatActivity {
@@ -61,21 +63,38 @@ public class ListContent extends AppCompatActivity {
     public void onClick(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_MoveToTrash) {
-            ContentValues values_trash = new ContentValues();
-            values_trash.put("status", 1);
-            db.update("List", values_trash, "id=" + listid, null);
-            values_trash.clear();
-            Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
-            ListContent.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
+            builder.setTitle( "确认移动至回收站?");
+            builder.setNegativeButton("取消", (dialog, which) -> {
+            });
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                ContentValues values_trash = new ContentValues();
+                values_trash.put("status", 1);
+                db.update("List", values_trash, "id=" + listid, null);
+                values_trash.clear();
+                //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
+                ListContent.this.finish();
+                overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+            });
+            builder.show();
+
         } else if (viewId == R.id.btn_MoveToArchive) {
-            ContentValues values_archive = new ContentValues();
-            values_archive.put("status", 2);
-            db.update("List", values_archive, "id=" + listid, null);
-            values_archive.clear();
-            Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
-            ListContent.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
+            builder.setTitle( "确认归档?");
+            builder.setNegativeButton("取消", (dialog, which) -> {
+            });
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                ContentValues values_archive = new ContentValues();
+                values_archive.put("status", 2);
+                db.update("List", values_archive, "id=" + listid, null);
+                values_archive.clear();
+                //Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
+                ListContent.this.finish();
+                overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+            });
+            builder.show();
         } else {
             Toast.makeText(ListContent.this, "发生严重错误！", Toast.LENGTH_SHORT).show();
         }
