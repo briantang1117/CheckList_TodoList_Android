@@ -15,7 +15,6 @@
         app:layout_constraintVertical_chainStyle="spread_inside">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,7 +37,6 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
