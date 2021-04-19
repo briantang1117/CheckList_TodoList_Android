@@ -394,7 +394,7 @@
                     android:layout_marginRight="16dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout4_1"
+                        android:id="@+id/Btn_About"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -1,7 +1,6 @@
 package com.brian.checklist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,11 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ListContent extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
+    private int listid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,54 +23,61 @@ public class ListContent extends AppCompatActivity {
         setContentView(R.layout.activity_list_content);
 
         //解析传递过来的listid
-        int listid = Integer.parseInt(getIntent().getStringExtra("listid"));
+        listid = Integer.parseInt(getIntent().getStringExtra("listid"));
         //Log.d("ListContent",getIntent().getStringExtra("listid"));
 
         //数据库初始化
         dbHelper = new MyDatabaseHelper(ListContent.this, "ListDatabase.db", null, 1);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
         //使用 listid 从数据库中查询list名称并设置到title，id有且仅有1条
-        Cursor listname = db.query("List", null, "id="+listid, null, null, null, null);
-        if (listname.getCount()==1) {
-            Log.d("main","check");
+        Cursor listname = db.query("List", null, "id=" + listid, null, null, null, null);
+        if (listname.getCount() == 1) {
+            Log.d("main", "check");
             listname.moveToFirst();
             String name = listname.getString(listname.getColumnIndex("listname"));
-            TextView title = (TextView) findViewById(R.id.listtitle);
+            TextView title = findViewById(R.id.listtitle);
             title.setText(name);
-        }
-        else {
+        } else {
             ListContent.this.finish();
-            overridePendingTransition(R.anim.no_anim,R.anim.trans_out);
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
             Toast.makeText(ListContent.this, "发生严重错误！", Toast.LENGTH_SHORT).show();
         }
-
-
-
-        /*if (listname.moveToFirst()) {
-            do {
-                //然后通过Cursor的getColumnIndex()获取某一列中所对应的位置的索引
-                String name = listname.getString(listname.getColumnIndex("listname"));
-                int countAll = listname.getInt(listname.getColumnIndex("countAll"));
-                int countFinish = listname.getInt(listname.getColumnIndex("countFinish"));
-                int load = 0;
-                if (countAll != 0) {
-                    load = countFinish * 100 / countAll;
-                }
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", listid);
-                map.put("image", load_icon.getResourceId(load / 10, 0));
-                map.put("title", name);
-                map.put("info", countFinish + "完成  " + (countAll - countFinish) + "待办 " + load + "%");
-                list.add(map);
-            } while (listname.moveToNext());
-        }*/
         listname.close();
+
+        //监听回收站与归档按钮
+        findViewById(R.id.btn_MoveToTrash).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_MoveToArchive).setOnClickListener(this::onClick);
+
     }
 
     //返回键
     public void backviewonClick(View view) {
         ListContent.this.finish();
-        overridePendingTransition(R.anim.no_anim,R.anim.trans_out);
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+    }
+
+    //回收站与归档按钮操作
+    public void onClick(View view) {
+        int viewId = view.getId();
+        if (viewId == R.id.btn_MoveToTrash) {
+            ContentValues values_trash = new ContentValues();
+            values_trash.put("status", 1);
+            db.update("List", values_trash, "id=" + listid, null);
+            values_trash.clear();
+            Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
+            ListContent.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        } else if (viewId == R.id.btn_MoveToArchive) {
+            ContentValues values_archive = new ContentValues();
+            values_archive.put("status", 2);
+            db.update("List", values_archive, "id=" + listid, null);
+            values_archive.clear();
+            Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
+            ListContent.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        } else {
+            Toast.makeText(ListContent.this, "发生严重错误！", Toast.LENGTH_SHORT).show();
+        }
     }
 }

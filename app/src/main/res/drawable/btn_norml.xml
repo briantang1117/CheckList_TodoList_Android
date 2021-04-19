@@ -6,11 +6,4 @@
     <!-- 圆角-->
     <corners android:radius="15dp"/>
 
-    <padding
-        android:bottom="8dp"
-        android:left="16dp"
-        android:right="16dp"
-        android:top="8dp"
-        />
-
 </shape>

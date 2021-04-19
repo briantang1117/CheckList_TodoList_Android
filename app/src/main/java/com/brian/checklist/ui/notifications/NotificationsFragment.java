@@ -21,7 +21,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        ConstraintLayout bt_about = root.findViewById(R.id.constraintLayout4_1);
+        ConstraintLayout bt_about = root.findViewById(R.id.Btn_About);
         bt_about.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setClass(getActivity(), about.class);//this前面为当前activty名称，class前面为要跳转到得activity名称

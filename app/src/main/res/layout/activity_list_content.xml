@@ -25,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="12dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_back_24"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,6 +46,34 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/btn_MoveToTrash"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_btn_trash_21"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/trash"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/btn_MoveToArchive"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_btn_archive_21"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_MoveToTrash"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/archive"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

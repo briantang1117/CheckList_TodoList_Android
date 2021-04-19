@@ -12,4 +12,6 @@
     <color name="EC">#ECECEC</color>
     <color name="grey666">#666666</color>
     <color name="E">#EEEEEE</color>
+    <color name="trash">#FF2D55</color>
+    <color name="archive">#FF9500</color>
 </resources>
