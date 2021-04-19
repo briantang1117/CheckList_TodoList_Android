@@ -16,6 +16,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:contentPadding="16dp"
+        android:foreground="@drawable/cardview_selector"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

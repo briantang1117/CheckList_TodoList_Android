@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginEnd="74dp"
+                android:layout_marginEnd="90dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -57,8 +57,10 @@
 
             <ImageView
                 android:id="@+id/btn_delete"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:background="@drawable/icon_selector"
                 android:src="@drawable/ic_btn_trashfill_21"
                 app:tint="@color/trash"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -67,8 +69,10 @@
                 tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/btn_recover"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:background="@drawable/icon_selector"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_btn_recover_21"
                 app:tint="@color/recover"
