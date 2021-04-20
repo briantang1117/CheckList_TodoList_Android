@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -96,6 +97,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int btn_id = v.getId();
+        Log.v("btn_trash",String.valueOf(btn_id));
         //点击删除
         if (btn_id == R.id.btn_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
@@ -107,7 +109,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
 
             //点击删除按钮之后，给出dialog提示
             AlertDialog.Builder builder = new AlertDialog.Builder(trash.this);
-            builder.setTitle("确认彻底删除 " + listname + "?");
+            builder.setTitle("确认将 " + listname + " 永久删除?");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
@@ -131,7 +133,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
 
             //点击删除按钮之后，给出dialog提示
             AlertDialog.Builder builder = new AlertDialog.Builder(trash.this);
-            builder.setTitle("还原 " + listname + "?");
+            builder.setTitle("确认将 " + listname + " 移出回收站?");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {

@@ -84,6 +84,7 @@
 
 
     <Button
+        style="?android:attr/borderlessButtonStyle"
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

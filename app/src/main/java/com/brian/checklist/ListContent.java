@@ -17,6 +17,7 @@ public class ListContent extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private int listid;
+    private String name;
 
 
     @Override
@@ -37,7 +38,7 @@ public class ListContent extends AppCompatActivity {
         if (listname.getCount() == 1) {
             Log.d("main", "check");
             listname.moveToFirst();
-            String name = listname.getString(listname.getColumnIndex("listname"));
+            name = listname.getString(listname.getColumnIndex("listname"));
             TextView title = findViewById(R.id.listtitle);
             title.setText(name);
         } else {
@@ -74,7 +75,7 @@ public class ListContent extends AppCompatActivity {
         if (viewId == R.id.btn_MoveToTrash) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认移动至回收站?");
+            builder.setTitle("确认将 "+name+" 移至回收站？");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
@@ -91,7 +92,7 @@ public class ListContent extends AppCompatActivity {
         } else if (viewId == R.id.btn_MoveToArchive) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认归档?");
+            builder.setTitle("确认将 "+name+" 移至归档？");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {

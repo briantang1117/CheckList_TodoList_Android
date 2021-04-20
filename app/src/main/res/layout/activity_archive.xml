@@ -53,7 +53,7 @@
 
     <ListView
         android:divider="@null"
-        android:id="@+id/list_view_trash"
+        android:id="@+id/list_view_archive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
