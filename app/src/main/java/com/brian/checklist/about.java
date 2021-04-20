@@ -1,10 +1,10 @@
 package com.brian.checklist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class about extends AppCompatActivity {
 
@@ -16,7 +16,7 @@ public class about extends AppCompatActivity {
 
     public void backviewonClick(View view) {
         about.this.finish();
-        overridePendingTransition(R.anim.no_anim,R.anim.trans_out);
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
     }
 
     @Override

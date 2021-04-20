@@ -1,7 +1,5 @@
 package com.brian.checklist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -10,6 +8,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class archive extends AppCompatActivity {
 
     public void backviewonClick(View view) {
         archive.this.finish();
-        overridePendingTransition(R.anim.no_anim,R.anim.trans_out);
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
     }
 
     @Override

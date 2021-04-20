@@ -2,7 +2,6 @@ package com.brian.checklist;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.brian.checklist.R;
 import com.brian.checklist.about;
-import com.brian.checklist.trash;
 import com.brian.checklist.archive;
+import com.brian.checklist.trash;
 
 public class NotificationsFragment extends Fragment {
 
@@ -30,19 +29,19 @@ public class NotificationsFragment extends Fragment {
             Intent intent = new Intent();
             intent.setClass(getActivity(), about.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
+            getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
         });
         bt_trash.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setClass(getActivity(), trash.class);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
+            getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
         });
         bt_archive.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setClass(getActivity(), archive.class);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
+            getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
         });
 
         return root;

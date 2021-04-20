@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.Map;
-
-import com.brian.checklist.R;
 
 public class ListViewAdapterTrash extends BaseAdapter {
     private final View.OnClickListener listener;
@@ -26,16 +23,18 @@ public class ListViewAdapterTrash extends BaseAdapter {
 
     //组件集合，对应list.xml中的控件
 
-    public final class Zujian{
+    public final class Zujian {
         public TextView title;
         public TextView info;
         public ImageView btn_delete;
         public ImageView btn_recover;
     }
+
     @Override
     public int getCount() {
         return data.size();
     }
+
     /**
      * 获得某一位置的数据
      */
@@ -43,6 +42,7 @@ public class ListViewAdapterTrash extends BaseAdapter {
     public Object getItem(int position) {
         return data.get(position);
     }
+
     /**
      * 获得唯一标识
      */
@@ -55,21 +55,21 @@ public class ListViewAdapterTrash extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Zujian zujian;
-        if(convertView==null){
-            zujian=new Zujian();
+        if (convertView == null) {
+            zujian = new Zujian();
             //获得组件，实例化组件
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_list_item, parent,false);
-            zujian.title= convertView.findViewById(R.id.title);
-            zujian.info= convertView.findViewById(R.id.info);
-            zujian.btn_delete= convertView.findViewById(R.id.btn_delete);
-            zujian.btn_recover= convertView.findViewById(R.id.btn_recover);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_list_item, parent, false);
+            zujian.title = convertView.findViewById(R.id.title);
+            zujian.info = convertView.findViewById(R.id.info);
+            zujian.btn_delete = convertView.findViewById(R.id.btn_delete);
+            zujian.btn_recover = convertView.findViewById(R.id.btn_recover);
             convertView.setTag(zujian);
-        }else{
-            zujian=(Zujian)convertView.getTag();
+        } else {
+            zujian = (Zujian) convertView.getTag();
         }
         //绑定数据
-        zujian.title.setText((String)data.get(position).get("title"));
-        zujian.info.setText((String)data.get(position).get("info"));
+        zujian.title.setText((String) data.get(position).get("title"));
+        zujian.info.setText((String) data.get(position).get("info"));
 
         //监听
         zujian.btn_delete.setOnClickListener(listener);

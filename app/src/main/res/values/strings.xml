@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">CheckList</string>
     <string name="app_name_cn">CheckList 清单</string>
-    <string name="title_home">清单</string>
-    <string name="title_setting">设置</string>
+    <string name="title_home">主页</string>
+    <string name="title_setting">更多</string>
     <string name="NaN">NaNNaNNaN</string>
     <string name="add_list">添加清单</string>
     <string name="addplaceholder">清单名称</string>

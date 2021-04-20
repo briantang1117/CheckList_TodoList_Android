@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".trash" >
+    tools:context=".trash">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,8 +77,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/clear_trash"
             android:textSize="14sp"
-            android:onClick="ClearTrash"
-            />
+            android:onClick="ClearTrash" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView

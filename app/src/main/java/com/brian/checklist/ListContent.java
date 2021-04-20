@@ -1,7 +1,6 @@
 package com.brian.checklist;
 
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -75,7 +74,7 @@ public class ListContent extends AppCompatActivity {
         if (viewId == R.id.btn_MoveToTrash) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle( "确认移动至回收站?");
+            builder.setTitle("确认移动至回收站?");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
@@ -92,7 +91,7 @@ public class ListContent extends AppCompatActivity {
         } else if (viewId == R.id.btn_MoveToArchive) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle( "确认归档?");
+            builder.setTitle("确认归档?");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
