@@ -22,12 +22,11 @@ public class ListViewAdapterTrash extends BaseAdapter {
 
 
     //组件集合，对应list.xml中的控件
-
     public final class Zujian {
         public TextView title;
         public TextView info;
-        public ImageView btn_delete;
-        public ImageView btn_recover;
+        public ImageView btn_trash_delete;
+        public ImageView btn_trash_recover;
     }
 
     @Override
@@ -61,8 +60,8 @@ public class ListViewAdapterTrash extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_list_item, parent, false);
             zujian.title = convertView.findViewById(R.id.title);
             zujian.info = convertView.findViewById(R.id.info);
-            zujian.btn_delete = convertView.findViewById(R.id.btn_delete);
-            zujian.btn_recover = convertView.findViewById(R.id.btn_recover);
+            zujian.btn_trash_delete = convertView.findViewById(R.id.btn_trash_delete);
+            zujian.btn_trash_recover = convertView.findViewById(R.id.btn_trash_recover);
             convertView.setTag(zujian);
         } else {
             zujian = (Zujian) convertView.getTag();
@@ -71,11 +70,11 @@ public class ListViewAdapterTrash extends BaseAdapter {
         zujian.title.setText((String) data.get(position).get("title"));
         zujian.info.setText((String) data.get(position).get("info"));
 
-        //监听
-        zujian.btn_delete.setOnClickListener(listener);
-        zujian.btn_recover.setOnClickListener(listener);
-        zujian.btn_delete.setTag(position);
-        zujian.btn_recover.setTag(position);
+        //监听按钮 返回位置
+        zujian.btn_trash_delete.setOnClickListener(listener);
+        zujian.btn_trash_recover.setOnClickListener(listener);
+        zujian.btn_trash_delete.setTag(position);
+        zujian.btn_trash_recover.setTag(position);
         return convertView;
     }
 

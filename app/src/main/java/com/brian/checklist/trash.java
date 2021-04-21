@@ -99,9 +99,10 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         int btn_id = v.getId();
         Log.v("btn_trash",String.valueOf(btn_id));
         //点击删除
-        if (btn_id == R.id.btn_delete) {
+        if (btn_id == R.id.btn_trash_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
 
+            //通过位置查询真实id
             ListView lv = listView;
             HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
             int listid = (int) listinfo.get("id");
@@ -118,12 +119,12 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
                 //刷新list
                 datalist.clear();
                 datalist.addAll(getData());
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();//更新数据
             });
             builder.show();
         }
         //点击还原
-        else if (btn_id == R.id.btn_recover) {
+        else if (btn_id == R.id.btn_trash_recover) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
 
             ListView lv = listView;

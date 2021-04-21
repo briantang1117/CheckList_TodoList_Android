@@ -24,11 +24,7 @@ public class ListViewAdapter extends BaseAdapter {
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    /**
-     * 组件集合，对应list.xml中的控件
-     *
-     * @author Administrator
-     */
+    //组件集合，对应list.xml中的控件
     public final class Zujian {
         public ImageView image;
         public TextView title;

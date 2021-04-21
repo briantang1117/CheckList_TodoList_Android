@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        //新建清单按钮 FAB 定义
+        //新建清单按钮 FAB 定义,果断时间可能会换掉
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             //页面跳转

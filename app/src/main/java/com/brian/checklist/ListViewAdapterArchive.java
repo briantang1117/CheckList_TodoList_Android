@@ -21,16 +21,12 @@ public class ListViewAdapterArchive extends BaseAdapter {
         this.data = data;
     }
 
-    /**
-     * 组件集合，对应list.xml中的控件
-     *
-     * @author Administrator
-     */
+     //组件集合，对应list.xml中的控件
     public final class Zujian {
         public TextView title;
         public TextView info;
-        public ImageView btn_delete_a;
-        public ImageView btn_recover_a;
+        public ImageView btn_archieve_delete;
+        public ImageView btn_archieve_recover;
     }
 
     @Override
@@ -64,8 +60,8 @@ public class ListViewAdapterArchive extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.archive_list_item, parent, false);
             zujian.title = convertView.findViewById(R.id.title);
             zujian.info = convertView.findViewById(R.id.info);
-            zujian.btn_delete_a = convertView.findViewById(R.id.btn_delete_a);
-            zujian.btn_recover_a = convertView.findViewById(R.id.btn_recover_a);
+            zujian.btn_archieve_delete = convertView.findViewById(R.id.btn_archive_delete);
+            zujian.btn_archieve_recover = convertView.findViewById(R.id.btn_archieve_recover);
             convertView.setTag(zujian);
         } else {
             zujian = (Zujian) convertView.getTag();
@@ -75,10 +71,10 @@ public class ListViewAdapterArchive extends BaseAdapter {
         zujian.info.setText((String) data.get(position).get("info"));
 
         //监听
-        zujian.btn_delete_a.setOnClickListener(listener);
-        zujian.btn_recover_a.setOnClickListener(listener);
-        zujian.btn_delete_a.setTag(position);
-        zujian.btn_recover_a.setTag(position);
+        zujian.btn_archieve_delete.setOnClickListener(listener);
+        zujian.btn_archieve_recover.setOnClickListener(listener);
+        zujian.btn_archieve_delete.setTag(position);
+        zujian.btn_archieve_recover.setTag(position);
         return convertView;
     }
 
