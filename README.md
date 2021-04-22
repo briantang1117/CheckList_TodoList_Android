@@ -31,5 +31,6 @@
    -  优化icon图标显示效果、优化提示语言
    -  完成第一阶段一级List开发工作
 -  2020年4月22日
-   -  初步完成content页面功能，content相关功能都还需要优化
+   -  完成content页面功能
    -  增加长按删除功能：list、content
+   -  发布第一个release版本v1.0.0-beta
