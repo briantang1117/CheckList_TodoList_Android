@@ -84,7 +84,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         int btn_id = v.getId();
         Log.v("btn_arch",String.valueOf(btn_id));
         //点击删除
-        if (btn_id == R.id.btn_archive_delete) {
+        if (btn_id == R.id.btn_trash_archive_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
 
             ListView lv = listView;
@@ -102,6 +102,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
                 ContentValues values_trash = new ContentValues();
                 values_trash.put("status", 1);
                 db.update("List", values_trash, "id=" + listid, null);
+                db.update("Content", values_trash,"listid="+listid,null);
                 values_trash.clear();
                 //刷新list
                 datalist.clear();
@@ -111,7 +112,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
             builder.show();
         }
         //点击还原
-        else if (btn_id == R.id.btn_archieve_recover) {
+        else if (btn_id == R.id.btn_trash_archive_recover) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
 
             ListView lv = listView;

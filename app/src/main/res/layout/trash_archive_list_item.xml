@@ -59,7 +59,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView
-            android:id="@+id/btn_archive_delete"
+            android:id="@+id/btn_trash_archive_delete"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/icon_selector"
@@ -74,7 +74,7 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:id="@+id/btn_archieve_recover"
+            android:id="@+id/btn_trash_archive_recover"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="16dp"
@@ -84,7 +84,7 @@
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_archive_delete"
+            app:layout_constraintEnd_toStartOf="@id/btn_trash_archive_delete"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/recover"
             tools:ignore="ContentDescription" />

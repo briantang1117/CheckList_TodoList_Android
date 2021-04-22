@@ -20,6 +20,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "id integer primary key autoincrement," +
             "isFinish integer," +
             "content text," +
+            "status integer," +
             "listid integer)";
 
     private final Context mContext;

@@ -57,11 +57,11 @@ public class ListViewAdapterTrash extends BaseAdapter {
         if (convertView == null) {
             zujian = new Zujian();
             //获得组件，实例化组件
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_archive_list_item, parent, false);
             zujian.title = convertView.findViewById(R.id.title);
             zujian.info = convertView.findViewById(R.id.info);
-            zujian.btn_trash_delete = convertView.findViewById(R.id.btn_trash_delete);
-            zujian.btn_trash_recover = convertView.findViewById(R.id.btn_trash_recover);
+            zujian.btn_trash_delete = convertView.findViewById(R.id.btn_trash_archive_delete);
+            zujian.btn_trash_recover = convertView.findViewById(R.id.btn_trash_archive_recover);
             convertView.setTag(zujian);
         } else {
             zujian = (Zujian) convertView.getTag();

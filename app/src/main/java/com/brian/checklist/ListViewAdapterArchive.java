@@ -25,8 +25,8 @@ public class ListViewAdapterArchive extends BaseAdapter {
     public final class Zujian {
         public TextView title;
         public TextView info;
-        public ImageView btn_archieve_delete;
-        public ImageView btn_archieve_recover;
+        public ImageView btn_archive_delete;
+        public ImageView btn_archive_recover;
     }
 
     @Override
@@ -57,11 +57,11 @@ public class ListViewAdapterArchive extends BaseAdapter {
         if (convertView == null) {
             zujian = new Zujian();
             //获得组件，实例化组件
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.archive_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.trash_archive_list_item, parent, false);
             zujian.title = convertView.findViewById(R.id.title);
             zujian.info = convertView.findViewById(R.id.info);
-            zujian.btn_archieve_delete = convertView.findViewById(R.id.btn_archive_delete);
-            zujian.btn_archieve_recover = convertView.findViewById(R.id.btn_archieve_recover);
+            zujian.btn_archive_delete = convertView.findViewById(R.id.btn_trash_archive_delete);
+            zujian.btn_archive_recover = convertView.findViewById(R.id.btn_trash_archive_recover);
             convertView.setTag(zujian);
         } else {
             zujian = (Zujian) convertView.getTag();
@@ -71,10 +71,10 @@ public class ListViewAdapterArchive extends BaseAdapter {
         zujian.info.setText((String) data.get(position).get("info"));
 
         //监听
-        zujian.btn_archieve_delete.setOnClickListener(listener);
-        zujian.btn_archieve_recover.setOnClickListener(listener);
-        zujian.btn_archieve_delete.setTag(position);
-        zujian.btn_archieve_recover.setTag(position);
+        zujian.btn_archive_delete.setOnClickListener(listener);
+        zujian.btn_archive_recover.setOnClickListener(listener);
+        zujian.btn_archive_delete.setTag(position);
+        zujian.btn_archive_recover.setTag(position);
         return convertView;
     }
 

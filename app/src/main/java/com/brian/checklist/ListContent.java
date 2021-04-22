@@ -130,6 +130,7 @@ public class ListContent extends AppCompatActivity {
                     values.put("content", add_content_text.getText().toString());
                     values.put("listid", listid);
                     values.put("isFinish", 0);
+                    values.put("status", 0);
                     db.insert("Content", null, values);
                     values.clear();
                     countAll++;
@@ -194,6 +195,7 @@ public class ListContent extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            syncdb();
             ListContent.this.finish();
             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
         }
@@ -213,6 +215,7 @@ public class ListContent extends AppCompatActivity {
                 ContentValues values_trash = new ContentValues();
                 values_trash.put("status", 1);
                 db.update("List", values_trash, "id=" + listid, null);
+                db.update("Content", values_trash,"listid="+listid,null);
                 values_trash.clear();
                 //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
                 ListContent.this.finish();
