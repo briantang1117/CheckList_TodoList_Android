@@ -86,36 +86,34 @@ public class ListContent extends AppCompatActivity {
             int contentstatus = (int) contentinfo.get("status");
             if (contentstatus == 0) {
                 //点击改为完成
-                countFinish++;
                 ContentValues values_0to1 = new ContentValues();
-                ContentValues values_sync = new ContentValues();
-                values_sync.put("countFinish", countFinish);
                 values_0to1.put("isFinish", 1);
-
                 db.update("Content", values_0to1, "id=" + contentid, null);
-                db.update("List", values_sync, "id=" + listid, null);
-
-                values_sync.clear();
                 values_0to1.clear();
-                //刷新list
+                syncdb();
                 refresh();
             } else if (contentstatus == 1) {
                 //点击改为不完成
-                countFinish--;
                 ContentValues values_1to0 = new ContentValues();
-                ContentValues values_sync = new ContentValues();
                 values_1to0.put("isFinish", 0);
-                values_sync.put("countFinish", countFinish);
-
                 db.update("Content", values_1to0, "id=" + contentid, null);
-                db.update("List", values_sync, "id=" + listid, null);
-
-                values_sync.clear();
                 values_1to0.clear();
-                //刷新list
+                syncdb();
                 refresh();
             }
         });
+
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            HashMap<String, Object> contentinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);
+            int contentid = (int) contentinfo.get("id");
+            int contentstatus = (int) contentinfo.get("status");
+            //Toast.makeText(ListContent.this, String.valueOf(contentid), Toast.LENGTH_SHORT).show();
+            db.delete("Content","id="+contentid,null);
+            syncdb();
+            refresh();
+            return true;
+        });
+
         addbtn.setOnClickListener(v -> {
             Log.d("Add", "onClick: add");
             final EditText add_content_text = new EditText(ListContent.this);
@@ -133,10 +131,7 @@ public class ListContent extends AppCompatActivity {
                     values.put("status", 0);
                     db.insert("Content", null, values);
                     values.clear();
-                    countAll++;
-                    ContentValues values_sync = new ContentValues();
-                    values_sync.put("countAll", countAll);
-                    db.update("List", values_sync, "id=" + listid, null);
+                    syncdb();
                     refresh();
                 }
                 else {
@@ -171,23 +166,11 @@ public class ListContent extends AppCompatActivity {
         return list;
     }
 
-    public void syncdb() {
-        Cursor listALL = db.query("Content", null, "listid=" + listid, null, null, null, null);
-        countAll = listALL.getCount();
-        listALL.close();
-        Cursor listFinish = db.query("Content", null, "listid=" + listid + " AND isFinish=1", null, null, null, null);
-        countFinish = listFinish.getCount();
-        listFinish.close();
-        ContentValues values_sync = new ContentValues();
-        values_sync.put("countFinish", countFinish);
-        values_sync.put("countAll", countAll);
-        db.update("List", values_sync, "id=" + listid, null);
-    }
+
 
 
     //返回键
     public void backviewonClick(View view) {
-        syncdb();
         ListContent.this.finish();
         overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
     }
@@ -195,7 +178,6 @@ public class ListContent extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            syncdb();
             ListContent.this.finish();
             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
         }
@@ -244,10 +226,25 @@ public class ListContent extends AppCompatActivity {
         }
     }
 
+    //刷新listview
     public void refresh() {
         //刷新list
         datalist.clear();
         datalist.addAll(getData());
         adapter.notifyDataSetChanged();
+    }
+
+    //两表同步
+    public void syncdb() {
+        Cursor listALL = db.query("Content", null, "listid=" + listid, null, null, null, null);
+        countAll = listALL.getCount();
+        listALL.close();
+        Cursor listFinish = db.query("Content", null, "listid=" + listid + " AND isFinish=1", null, null, null, null);
+        countFinish = listFinish.getCount();
+        listFinish.close();
+        ContentValues values_sync = new ContentValues();
+        values_sync.put("countFinish", countFinish);
+        values_sync.put("countAll", countAll);
+        db.update("List", values_sync, "id=" + listid, null);
     }
 }

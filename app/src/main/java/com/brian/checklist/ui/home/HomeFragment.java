@@ -1,6 +1,7 @@
 package com.brian.checklist.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.brian.checklist.ListContent;
@@ -53,6 +55,28 @@ public class HomeFragment extends Fragment {
             intent.putExtra("listid", listid);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
+        });
+
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
+            int listid = (int) listinfo.get("id");
+            String name = (String) listinfo.get("title");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("确认将 " + name + " 移至回收站？");
+            builder.setNegativeButton("取消", (dialog, which) -> {
+            });
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                ContentValues values_trash = new ContentValues();
+                values_trash.put("status", 1);
+                db.update("List", values_trash, "id=" + listid, null);
+                db.update("Content", values_trash,"listid="+listid,null);
+                values_trash.clear();
+                refresh();
+                //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
+            });
+            builder.show();
+            return true;
         });
 
         ImageView bt_search = root.findViewById(R.id.btn_search);
@@ -97,6 +121,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        refresh();
+    }
+
+    //刷新listview
+    public void refresh() {
+        //刷新list
         datalist.clear();
         datalist.addAll(getData());
         adapter.notifyDataSetChanged();
