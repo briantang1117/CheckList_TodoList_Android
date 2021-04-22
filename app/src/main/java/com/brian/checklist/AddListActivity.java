@@ -62,7 +62,6 @@ public class AddListActivity extends AppCompatActivity {
             if (cursor.moveToFirst()) {
                 strid = cursor.getInt(0);
                 cursor.close();
-                Log.i("testAuto", String.valueOf(strid));
                 //按下完成键跳转到新建list详情页，附带id
                 Intent intent = new Intent();
                 intent.setClass(AddListActivity.this, ListContent.class);//this前面为当前activty名称，class前面为要跳转到得activity名称

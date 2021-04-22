@@ -3,17 +3,18 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-  <group android:scaleX="0.38156417"
-      android:scaleY="0.38156417"
-      android:translateX="30.24"
-      android:translateY="35.391117">
-    <path
-        android:pathData="M50.63,94.91l71.27,-71.27a9,9 0,0 0,0 -12.73l-8.27,-8.27a9,9 0,0 0,-12.73 0L25.39,78.15a3,3 0,0 0,0 4.24l12.51,12.52A9,9 0,0 0,50.63 94.91Z"
-        android:fillColor="#0f4c81"
-        android:fillType="evenOdd"/>
-    <path
-        android:pathData="M19.39,72.15 L36.15,55.39a3,3 0,0 0,0 -4.24L23.63,38.64a9,9 0,0 0,-12.73 0l-8.27,8.27a9,9 0,0 0,0 12.73l12.52,12.51A3,3 0,0 0,19.39 72.15Z"
-        android:fillColor="#0f4c81"
-        android:fillType="evenOdd"/>
-  </group>
+    <group
+        android:scaleX="0.38156417"
+        android:scaleY="0.38156417"
+        android:translateX="30.24"
+        android:translateY="35.391117">
+        <path
+            android:pathData="M50.63,94.91l71.27,-71.27a9,9 0,0 0,0 -12.73l-8.27,-8.27a9,9 0,0 0,-12.73 0L25.39,78.15a3,3 0,0 0,0 4.24l12.51,12.52A9,9 0,0 0,50.63 94.91Z"
+            android:fillColor="#0f4c81"
+            android:fillType="evenOdd" />
+        <path
+            android:pathData="M19.39,72.15 L36.15,55.39a3,3 0,0 0,0 -4.24L23.63,38.64a9,9 0,0 0,-12.73 0l-8.27,8.27a9,9 0,0 0,0 12.73l12.52,12.51A3,3 0,0 0,19.39 72.15Z"
+            android:fillColor="#0f4c81"
+            android:fillType="evenOdd" />
+    </group>
 </vector>

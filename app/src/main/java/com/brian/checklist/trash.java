@@ -86,7 +86,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         });
         builder.setPositiveButton("确定", (dialog, which) -> {
             db.delete("List", "status = 1", null);
-            db.delete("Content","status = 1",null);
+            db.delete("Content", "status = 1", null);
             //刷新list
             trash.this.finish();
             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
@@ -98,7 +98,6 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int btn_id = v.getId();
-        Log.v("btn_trash",String.valueOf(btn_id));
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
@@ -117,7 +116,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
             builder.setPositiveButton("确定", (dialog, which) -> {
                 //数据库删除
                 db.delete("List", "id=" + listid, null);
-                db.delete("Content","listid="+ listid,null);
+                db.delete("Content", "listid=" + listid, null);
                 //刷新list
                 datalist.clear();
                 datalist.addAll(getData());
@@ -144,7 +143,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
                 ContentValues values_recover = new ContentValues();
                 values_recover.put("status", 0);
                 db.update("List", values_recover, "id=" + listid, null);
-                db.update("Content", values_recover,"listid="+listid,null);
+                db.update("Content", values_recover, "listid=" + listid, null);
                 values_recover.clear();
                 //刷新list
                 datalist.clear();

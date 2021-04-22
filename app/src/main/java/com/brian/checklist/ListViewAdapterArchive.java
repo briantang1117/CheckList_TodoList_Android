@@ -21,7 +21,7 @@ public class ListViewAdapterArchive extends BaseAdapter {
         this.data = data;
     }
 
-     //组件集合，对应list.xml中的控件
+    //组件集合，对应list.xml中的控件
     public final class Zujian {
         public TextView title;
         public TextView info;

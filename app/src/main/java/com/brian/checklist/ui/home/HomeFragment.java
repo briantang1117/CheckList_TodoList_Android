@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
                 ContentValues values_trash = new ContentValues();
                 values_trash.put("status", 1);
                 db.update("List", values_trash, "id=" + listid, null);
-                db.update("Content", values_trash,"listid="+listid,null);
+                db.update("Content", values_trash, "listid=" + listid, null);
                 values_trash.clear();
                 refresh();
                 //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();

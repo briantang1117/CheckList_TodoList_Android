@@ -42,7 +42,6 @@ public class ListContent extends AppCompatActivity {
 
         //解析传递过来的listid
         listid = Integer.parseInt(getIntent().getStringExtra("listid"));
-        //Log.d("ListContent",getIntent().getStringExtra("listid"));
 
         //数据库初始化
         dbHelper = new MyDatabaseHelper(ListContent.this, "ListDatabase.db", null, 1);
@@ -51,7 +50,6 @@ public class ListContent extends AppCompatActivity {
         //使用 listid 从数据库中查询list名称并设置到title，id有且仅有1条
         Cursor listname = db.query("List", null, "id=" + listid, null, null, null, null);
         if (listname.getCount() == 1) {
-            Log.d("main", "check");
             listname.moveToFirst();
             name = listname.getString(listname.getColumnIndex("listname"));
             countAll = listname.getInt(listname.getColumnIndex("countAll"));
@@ -108,14 +106,13 @@ public class ListContent extends AppCompatActivity {
             int contentid = (int) contentinfo.get("id");
             int contentstatus = (int) contentinfo.get("status");
             //Toast.makeText(ListContent.this, String.valueOf(contentid), Toast.LENGTH_SHORT).show();
-            db.delete("Content","id="+contentid,null);
+            db.delete("Content", "id=" + contentid, null);
             syncdb();
             refresh();
             return true;
         });
 
         addbtn.setOnClickListener(v -> {
-            Log.d("Add", "onClick: add");
             final EditText add_content_text = new EditText(ListContent.this);
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
             builder.setTitle("请添加内容");
@@ -133,8 +130,7 @@ public class ListContent extends AppCompatActivity {
                     values.clear();
                     syncdb();
                     refresh();
-                }
-                else {
+                } else {
                     Toast.makeText(ListContent.this, "请输入内容", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -167,8 +163,6 @@ public class ListContent extends AppCompatActivity {
     }
 
 
-
-
     //返回键
     public void backviewonClick(View view) {
         ListContent.this.finish();
@@ -197,7 +191,7 @@ public class ListContent extends AppCompatActivity {
                 ContentValues values_trash = new ContentValues();
                 values_trash.put("status", 1);
                 db.update("List", values_trash, "id=" + listid, null);
-                db.update("Content", values_trash,"listid="+listid,null);
+                db.update("Content", values_trash, "listid=" + listid, null);
                 values_trash.clear();
                 //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
                 ListContent.this.finish();
