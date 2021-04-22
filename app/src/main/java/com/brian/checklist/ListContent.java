@@ -75,7 +75,7 @@ public class ListContent extends AppCompatActivity {
         //
         View addView = getLayoutInflater().inflate(R.layout.content_item_add, null);
         ImageView addbtn = addView.findViewById(R.id.add_icon);
-        listView.addFooterView(addView);
+        listView.addFooterView(addView,null,false);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {

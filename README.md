@@ -34,3 +34,4 @@
    -  完成content页面功能
    -  增加长按删除功能：list、content
    -  发布第一个release版本v1.0.0-beta
+   -  修复v1.0.0-beta中的严重问题

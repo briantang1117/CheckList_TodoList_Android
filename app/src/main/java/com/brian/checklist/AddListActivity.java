@@ -50,8 +50,8 @@ public class AddListActivity extends AppCompatActivity {
         //确保list名字不为空
         if (listNameInput.getText().toString().length() != 0) {
             values.put("listname", listNameInput.getText().toString());
-            values.put("countAll", 5);
-            values.put("countFinish", 5);
+            values.put("countAll", 0);
+            values.put("countFinish", 0);
             values.put("status", 0);
             db.insert("List", null, values);
             values.clear();

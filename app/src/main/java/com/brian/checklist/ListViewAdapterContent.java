@@ -76,9 +76,11 @@ public class ListViewAdapterContent extends BaseAdapter {
         if (status == 1) {
             zujian.title.setTextColor(Color.parseColor("#c4c4c4"));
             zujian.title.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            zujian.title.getPaint().setAntiAlias(true);
         } else if (status == 0) {
             zujian.title.setTextColor(Color.parseColor("#454545"));
             zujian.title.getPaint().setFlags(0);
+            zujian.title.getPaint().setAntiAlias(true);
         }
 
         return convertView;
