@@ -13,4 +13,8 @@
         <item>@drawable/ic_load_90</item>
         <item>@drawable/ic_load_100</item>
     </string-array>
+    <string-array name="checked_icon">
+        <item>@drawable/ic_isnotcheck</item>
+        <item>@drawable/ic_ischeck</item>
+    </string-array>
 </resources>

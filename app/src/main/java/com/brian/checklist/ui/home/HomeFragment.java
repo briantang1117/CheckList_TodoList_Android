@@ -45,8 +45,7 @@ public class HomeFragment extends Fragment {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            ListView lv = (ListView) parent;
-            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             String listid = listinfo.get("id").toString();
 
             Intent intent = new Intent();
@@ -75,7 +74,7 @@ public class HomeFragment extends Fragment {
             do {
                 //然后通过Cursor的getColumnIndex()获取某一列中所对应的位置的索引
                 String name = listList.getString(listList.getColumnIndex("listname"));
-                int listid = listList.getInt((listList.getColumnIndex("id")));
+                int listid = listList.getInt(listList.getColumnIndex("id"));
                 int countAll = listList.getInt(listList.getColumnIndex("countAll"));
                 int countFinish = listList.getInt(listList.getColumnIndex("countFinish"));
                 int load = 0;

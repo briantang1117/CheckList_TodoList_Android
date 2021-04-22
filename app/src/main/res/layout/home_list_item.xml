@@ -67,7 +67,6 @@
                 android:id="@+id/image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_load_00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
