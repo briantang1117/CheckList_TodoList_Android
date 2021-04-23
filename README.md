@@ -8,3 +8,4 @@
    -  发布release版本v1.0.0-beta2
 -  2020年4月23日
    -  新建uiimprove分支，改进UI
+   -  AddListActivity中edittext自动获取焦点并弹出软键盘
