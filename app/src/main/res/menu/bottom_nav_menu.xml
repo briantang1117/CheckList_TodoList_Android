@@ -7,10 +7,11 @@
         android:icon="@drawable/ic_house_36"
         android:title="@string/title_home" />
 
-
+<!--
     <item
         android:id="@+id/navigation_empty"
         tools:ignore="MenuTitle" />
+        -->
 
     <item
         android:id="@+id/navigation_setting"
