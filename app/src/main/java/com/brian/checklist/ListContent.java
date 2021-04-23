@@ -165,6 +165,7 @@ public class ListContent extends AppCompatActivity {
 
     //返回键
     public void backviewonClick(View view) {
+        syncdb();
         ListContent.this.finish();
         overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
     }
@@ -172,6 +173,7 @@ public class ListContent extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            syncdb();
             ListContent.this.finish();
             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
         }

@@ -16,11 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddListActivity extends AppCompatActivity {
 
     private MyDatabaseHelper dbHelper;
+    private EditText listNameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_list);
+
+        listNameInput = findViewById(R.id.listName);
+        listNameInput.setFocusable(true);
+        listNameInput.setFocusableInTouchMode(true);
+        listNameInput.requestFocus();
 
         dbHelper = new MyDatabaseHelper(this, "ListDatabase.db", null, 1);
         //获取数据库
@@ -42,7 +48,6 @@ public class AddListActivity extends AppCompatActivity {
 
 
     public void addlist(View view) {
-        EditText listNameInput = findViewById(R.id.listName);//获取输入的list名称
         SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
 
         ContentValues values = new ContentValues();//new一个存放写入数据的value
