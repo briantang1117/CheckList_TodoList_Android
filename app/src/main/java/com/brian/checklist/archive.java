@@ -1,12 +1,9 @@
 package com.brian.checklist;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -42,8 +39,6 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
 
     public List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray load_icon = getResources().obtainTypedArray(R.array.load_icon);
-
         Cursor listList = db.query("List", null, "status = 2", null, null, null, null);
         if (listList.moveToFirst()) {
             do {
@@ -63,21 +58,6 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         return list;
     }
 
-    //back
-    public void backviewonClick(View view) {
-        archive.this.finish();
-        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            archive.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        }
-        return super.onKeyUp(keyCode, event);
-    }
-
     //OnClick
     @Override
     public void onClick(View v) {
@@ -85,9 +65,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
-
-            ListView lv = listView;
-            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             int listid = (int) listinfo.get("id");
             String listname = listinfo.get("title").toString();
 
@@ -103,19 +81,14 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
                 db.update("List", values_trash, "id=" + listid, null);
                 db.update("Content", values_trash, "listid=" + listid, null);
                 values_trash.clear();
-                //刷新list
-                datalist.clear();
-                datalist.addAll(getData());
-                adapter.notifyDataSetChanged();
+                refresh();
             });
             builder.show();
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
-
-            ListView lv = listView;
-            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             int listid = (int) listinfo.get("id");
             String listname = listinfo.get("title").toString();
 
@@ -130,12 +103,31 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
                 values_recover.put("status", 0);
                 db.update("List", values_recover, "id=" + listid, null);
                 values_recover.clear();
-                //刷新list
-                datalist.clear();
-                datalist.addAll(getData());
-                adapter.notifyDataSetChanged();
+                refresh();
             });
             builder.show();
         }
+    }
+
+    //back
+    public void backviewonClick(View view) {
+        archive.this.finish();
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            archive.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    public void refresh() {
+        //刷新list
+        datalist.clear();
+        datalist.addAll(getData());
+        adapter.notifyDataSetChanged();
     }
 }

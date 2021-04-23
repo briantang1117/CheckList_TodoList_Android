@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -68,14 +67,14 @@ public class ListContent extends AppCompatActivity {
         findViewById(R.id.btn_MoveToArchive).setOnClickListener(this::onClick);
 
         //
-        listView = (ListView) findViewById(R.id.listview);
+        listView = findViewById(R.id.listview);
         datalist = getData();
         adapter = new ListViewAdapterContent(ListContent.this, datalist);
 
         //
         View addView = getLayoutInflater().inflate(R.layout.content_item_add, null);
         ImageView addbtn = addView.findViewById(R.id.add_icon);
-        listView.addFooterView(addView,null,false);
+        listView.addFooterView(addView, null, false);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -104,7 +103,6 @@ public class ListContent extends AppCompatActivity {
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             HashMap<String, Object> contentinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);
             int contentid = (int) contentinfo.get("id");
-            int contentstatus = (int) contentinfo.get("status");
             //Toast.makeText(ListContent.this, String.valueOf(contentid), Toast.LENGTH_SHORT).show();
             db.delete("Content", "id=" + contentid, null);
             syncdb();
@@ -193,7 +191,6 @@ public class ListContent extends AppCompatActivity {
                 db.update("List", values_trash, "id=" + listid, null);
                 db.update("Content", values_trash, "listid=" + listid, null);
                 values_trash.clear();
-                //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
                 ListContent.this.finish();
                 overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
             });
@@ -210,7 +207,6 @@ public class ListContent extends AppCompatActivity {
                 values_archive.put("status", 2);
                 db.update("List", values_archive, "id=" + listid, null);
                 values_archive.clear();
-                //Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
                 ListContent.this.finish();
                 overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
             });

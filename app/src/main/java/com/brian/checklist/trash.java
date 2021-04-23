@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -63,20 +62,6 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         return list;
     }
 
-    //返回键
-    public void backviewonClick(View view) {
-        trash.this.finish();
-        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            trash.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        }
-        return super.onKeyUp(keyCode, event);
-    }
 
     //清空回收站
     public void ClearTrash(View view) {
@@ -101,10 +86,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
-
-            //通过位置查询真实id
-            ListView lv = listView;
-            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             int listid = (int) listinfo.get("id");
             String listname = listinfo.get("title").toString();
 
@@ -118,18 +100,14 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
                 db.delete("List", "id=" + listid, null);
                 db.delete("Content", "listid=" + listid, null);
                 //刷新list
-                datalist.clear();
-                datalist.addAll(getData());
-                adapter.notifyDataSetChanged();//更新数据
+                refresh();
             });
             builder.show();
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
             final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
-
-            ListView lv = listView;
-            HashMap<String, Object> listinfo = (HashMap<String, Object>) lv.getItemAtPosition(position);//SimpleAdapter返回Map
+            HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             int listid = (int) listinfo.get("id");
             String listname = listinfo.get("title").toString();
 
@@ -146,11 +124,31 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
                 db.update("Content", values_recover, "listid=" + listid, null);
                 values_recover.clear();
                 //刷新list
-                datalist.clear();
-                datalist.addAll(getData());
-                adapter.notifyDataSetChanged();
+                refresh();
             });
             builder.show();
         }
+    }
+
+    public void refresh() {
+        //刷新list
+        datalist.clear();
+        datalist.addAll(getData());
+        adapter.notifyDataSetChanged();
+    }
+
+    //返回键
+    public void backviewonClick(View view) {
+        trash.this.finish();
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            trash.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }
