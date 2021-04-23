@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"
+        tools:ignore="FragmentTagUsage" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginBottom="117dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/classicalBlue"
+        app:srcCompat="@drawable/ic_plus_24"
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/add_main"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle"
+        android:layout_marginBottom="8dp"
+        android:elevation="8dp"
+        app:tint="@color/white"
+        android:padding="15dp"
+        app:srcCompat="@drawable/ic_plus_24"
+        android:orientation="horizontal" />
+
+
+</RelativeLayout>
+

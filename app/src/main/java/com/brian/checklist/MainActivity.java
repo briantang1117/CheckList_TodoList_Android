@@ -2,6 +2,8 @@ package com.brian.checklist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_2);
 
         //底部导航栏
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         //新建清单按钮 FAB 定义,果断时间可能会换掉
-        FloatingActionButton fab = findViewById(R.id.fab);
+        ImageView fab = findViewById(R.id.add_main);
         fab.setOnClickListener(view -> {
             //页面跳转
             Intent intent = new Intent();
