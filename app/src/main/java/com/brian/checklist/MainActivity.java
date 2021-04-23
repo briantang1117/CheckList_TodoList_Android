@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main_2);
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -36,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         //新建清单按钮 FAB 定义,果断时间可能会换掉
-        //ImageView fab = findViewById(R.id.add_main);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        ImageView fab = findViewById(R.id.add_main);
+        //FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             //页面跳转
             Intent intent = new Intent();
