@@ -35,6 +35,9 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         dbHelper = new MyDatabaseHelper(this, "ListDatabase.db", null, 1);
         db = dbHelper.getWritableDatabase();
         listView = findViewById(R.id.list_view_archive);
+        View emptyView = findViewById(R.id.empty);
+        listView.setEmptyView(emptyView);
+
         datalist = getData();
         adapter = new ListViewAdapterArchive(archive.this, datalist);
         listView.setAdapter(adapter);

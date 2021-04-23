@@ -39,6 +39,8 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         listView = root.findViewById(R.id.list_view);
+        View emptyView = root.findViewById(R.id.empty);
+        listView.setEmptyView(emptyView);
 
         dbHelper = new MyDatabaseHelper(getContext(), "ListDatabase.db", null, 1);
 

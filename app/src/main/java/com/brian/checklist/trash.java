@@ -36,6 +36,8 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         db = dbHelper.getWritableDatabase();
         datalist = getData();
         listView = findViewById(R.id.list_view_trash);
+        View emptyView = findViewById(R.id.empty);
+        listView.setEmptyView(emptyView);
         adapter = new ListViewAdapterTrash(trash.this, datalist);
         listView.setAdapter(adapter);
     }
