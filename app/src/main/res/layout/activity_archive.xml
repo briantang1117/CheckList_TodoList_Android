@@ -61,6 +61,7 @@
         android:paddingBottom="60dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
     <ImageView
         android:id="@+id/empty"
         android:layout_width="wrap_content"

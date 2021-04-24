@@ -26,10 +26,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private final Context mContext;
 
     //构造方法：第一个参数Context，第二个参数数据库名，第三个参数cursor允许我们在查询数据的时候返回一个自定义的光标位置，一般传入的都是null，第四个参数表示目前库的版本号（用于对库进行升级）
-    public MyDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public MyDatabaseHelper(Context context) {
+        super(context, "ListDatabase.db", null, 1);
         mContext = context;
     }
+
+    //dbHelper = new MyDatabaseHelper(ListContent.this, "ListDatabase.db", null, 1);
 
     @Override
     public void onCreate(SQLiteDatabase db) {
