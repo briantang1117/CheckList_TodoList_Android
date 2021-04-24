@@ -16,7 +16,7 @@
         <activity android:name=".ListContent" />
         <activity
             android:name=".AddListActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

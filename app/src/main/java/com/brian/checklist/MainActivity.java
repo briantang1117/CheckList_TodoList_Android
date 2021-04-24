@@ -2,6 +2,7 @@ package com.brian.checklist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,11 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-
-    private MyDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         //底部导航栏
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_setting)
                 .build();
@@ -32,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        //新建清单按钮 FAB 定义,果断时间可能会换掉
-        FloatingActionButton fab = findViewById(R.id.fab);
+        //新建清单按钮 FAB 定义,过段时间可能会换掉
+        ImageView fab = findViewById(R.id.add_main);
+        //FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             //页面跳转
             Intent intent = new Intent();
@@ -41,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
         });
-
-        //数据库初始化
-        dbHelper = new MyDatabaseHelper(this, "ListDatabase.db", null, 1);
-        dbHelper.getWritableDatabase();
     }
 
 }

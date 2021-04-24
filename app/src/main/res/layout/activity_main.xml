@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/BottomNavigationViewTheme"
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
         app:navGraph="@navigation/mobile_navigation"
         tools:ignore="FragmentTagUsage" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +44,22 @@
         app:srcCompat="@drawable/ic_plus_24"
         tools:ignore="ContentDescription"
         android:clickable="true"
-        android:focusable="true" />
+        android:focusable="true" />-->
+
+    <ImageView
+        android:id="@+id/add_main"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/round_circle_white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="22dp"
+        android:src="@drawable/ic_plus_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nav_view"
+        app:layout_constraintStart_toStartOf="@+id/nav_view"
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

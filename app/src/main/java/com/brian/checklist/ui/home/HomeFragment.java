@@ -1,11 +1,6 @@
 package com.brian.checklist.ui.home;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +14,16 @@ import androidx.fragment.app.Fragment;
 
 import com.brian.checklist.ListContent;
 import com.brian.checklist.ListViewAdapter;
-import com.brian.checklist.MyDatabaseHelper;
+import com.brian.checklist.MyDatabaseDAO;
 import com.brian.checklist.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
     private ListView listView;
-    private MyDatabaseHelper dbHelper;
-    private SQLiteDatabase db;
+    private MyDatabaseDAO db;
     private ListViewAdapter adapter;
     private List<Map<String, Object>> datalist;
 
@@ -38,9 +31,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        db = new MyDatabaseDAO(getActivity());
         listView = root.findViewById(R.id.list_view);
-
-        dbHelper = new MyDatabaseHelper(getContext(), "ListDatabase.db", null, 1);
+        View emptyView = root.findViewById(R.id.empty);
+        listView.setEmptyView(emptyView);
 
         datalist = getData();
         adapter = new ListViewAdapter(getActivity(), datalist);
@@ -59,7 +53,7 @@ public class HomeFragment extends Fragment {
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
-            int listid = (int) listinfo.get("id");
+            int listId = (int) listinfo.get("id");
             String name = (String) listinfo.get("title");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -67,11 +61,7 @@ public class HomeFragment extends Fragment {
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
-                ContentValues values_trash = new ContentValues();
-                values_trash.put("status", 1);
-                db.update("List", values_trash, "id=" + listid, null);
-                db.update("Content", values_trash, "listid=" + listid, null);
-                values_trash.clear();
+                db.updateList(listId, 1);
                 refresh();
                 //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
             });
@@ -88,33 +78,7 @@ public class HomeFragment extends Fragment {
 
     //从数据库获取data
     public List<Map<String, Object>> getData() {
-        List<Map<String, Object>> list = new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray load_icon = getResources().obtainTypedArray(R.array.load_icon);
-
-        db = dbHelper.getWritableDatabase();
-
-        Cursor listList = db.query("List", null, "status = 0", null, null, null, null);
-        if (listList.moveToFirst()) {
-            do {
-                //然后通过Cursor的getColumnIndex()获取某一列中所对应的位置的索引
-                String name = listList.getString(listList.getColumnIndex("listname"));
-                int listid = listList.getInt(listList.getColumnIndex("id"));
-                int countAll = listList.getInt(listList.getColumnIndex("countAll"));
-                int countFinish = listList.getInt(listList.getColumnIndex("countFinish"));
-                int load = 0;
-                if (countAll != 0) {
-                    load = countFinish * 100 / countAll;
-                }
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", listid);
-                map.put("image", load_icon.getResourceId(load / 10, 0));
-                map.put("title", name);
-                map.put("info", countFinish + "完成  " + (countAll - countFinish) + "待办 ");
-                list.add(map);
-            } while (listList.moveToNext());
-        }
-        listList.close();
-        return list;
+        return db.queryList(0);
     }
 
 

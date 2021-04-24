@@ -1,10 +1,5 @@
 package com.brian.checklist;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,21 +12,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ListContent extends AppCompatActivity {
-    private MyDatabaseHelper dbHelper;
-    private SQLiteDatabase db;
-    private int listid;
-    private String name;
+    private MyDatabaseDAO db;
+    private int listId;
+    private String listName;
     private ListView listView;
     private ListViewAdapterContent adapter;
     private List<Map<String, Object>> datalist;
-    private int countAll;
-    private int countFinish;
 
 
     @Override
@@ -40,72 +31,43 @@ public class ListContent extends AppCompatActivity {
         setContentView(R.layout.activity_list_content);
 
         //解析传递过来的listid
-        listid = Integer.parseInt(getIntent().getStringExtra("listid"));
+        listId = Integer.parseInt(getIntent().getStringExtra("listid"));
 
         //数据库初始化
-        dbHelper = new MyDatabaseHelper(ListContent.this, "ListDatabase.db", null, 1);
-        db = dbHelper.getWritableDatabase();
+        db = new MyDatabaseDAO(ListContent.this);
 
         //使用 listid 从数据库中查询list名称并设置到title，id有且仅有1条
-        Cursor listname = db.query("List", null, "id=" + listid, null, null, null, null);
-        if (listname.getCount() == 1) {
-            listname.moveToFirst();
-            name = listname.getString(listname.getColumnIndex("listname"));
-            countAll = listname.getInt(listname.getColumnIndex("countAll"));
-            countFinish = listname.getInt(listname.getColumnIndex("countFinish"));
-            TextView title = findViewById(R.id.listtitle);
-            title.setText(name);
-        } else {
-            ListContent.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-            Toast.makeText(ListContent.this, "发生严重错误！", Toast.LENGTH_SHORT).show();
-        }
-        listname.close();
+        listName = db.queryListInfo(listId);
+        TextView title = findViewById(R.id.listtitle);
+        title.setText(listName);
 
         //监听回收站与归档按钮
         findViewById(R.id.btn_MoveToTrash).setOnClickListener(this::onClick);
         findViewById(R.id.btn_MoveToArchive).setOnClickListener(this::onClick);
 
-        //
+        //listview
         listView = findViewById(R.id.listview);
         datalist = getData();
         adapter = new ListViewAdapterContent(ListContent.this, datalist);
-
-        //
         View addView = getLayoutInflater().inflate(R.layout.content_item_add, null);
         ImageView addbtn = addView.findViewById(R.id.add_icon);
         listView.addFooterView(addView, null, false);
         listView.setAdapter(adapter);
 
+        //listview点击监听
         listView.setOnItemClickListener((parent, view, position, id) -> {
             HashMap<String, Object> contentinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);
-            int contentid = (int) contentinfo.get("id");
-            int contentstatus = (int) contentinfo.get("status");
-            if (contentstatus == 0) {
-                //点击改为完成
-                ContentValues values_0to1 = new ContentValues();
-                values_0to1.put("isFinish", 1);
-                db.update("Content", values_0to1, "id=" + contentid, null);
-                values_0to1.clear();
-                syncdb();
-                refresh();
-            } else if (contentstatus == 1) {
-                //点击改为不完成
-                ContentValues values_1to0 = new ContentValues();
-                values_1to0.put("isFinish", 0);
-                db.update("Content", values_1to0, "id=" + contentid, null);
-                values_1to0.clear();
-                syncdb();
-                refresh();
-            }
+            int contentId = (int) contentinfo.get("id");
+            int contentStatus = (int) contentinfo.get("status");
+            db.updateContent(contentId, contentStatus, listId);
+            refresh();
         });
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             HashMap<String, Object> contentinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);
-            int contentid = (int) contentinfo.get("id");
+            int contentId = (int) contentinfo.get("id");
             //Toast.makeText(ListContent.this, String.valueOf(contentid), Toast.LENGTH_SHORT).show();
-            db.delete("Content", "id=" + contentid, null);
-            syncdb();
+            db.deleteContent(contentId,listId);
             refresh();
             return true;
         });
@@ -118,15 +80,9 @@ public class ListContent extends AppCompatActivity {
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
-                ContentValues values = new ContentValues();//new一个存放写入数据的value
-                if (add_content_text.getText().toString().length() != 0) {
-                    values.put("content", add_content_text.getText().toString());
-                    values.put("listid", listid);
-                    values.put("isFinish", 0);
-                    values.put("status", 0);
-                    db.insert("Content", null, values);
-                    values.clear();
-                    syncdb();
+                String contentName = add_content_text.getText().toString().trim();
+                if (contentName.length() != 0) {
+                    db.addContent(contentName, listId);
                     refresh();
                 } else {
                     Toast.makeText(ListContent.this, "请输入内容", Toast.LENGTH_SHORT).show();
@@ -138,75 +94,32 @@ public class ListContent extends AppCompatActivity {
 
 
     public List<Map<String, Object>> getData() {
-        List<Map<String, Object>> list = new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray checked_icon = getResources().obtainTypedArray(R.array.checked_icon);
-
-        Cursor listcontent = db.query("Content", null, "listid=" + listid, null, null, null, null);
-        if (listcontent.moveToFirst()) {
-            do {
-                String name = listcontent.getString(listcontent.getColumnIndex("content"));
-                int id = listcontent.getInt(listcontent.getColumnIndex("id"));
-                int status = listcontent.getInt(listcontent.getColumnIndex("isFinish"));
-
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", id);
-                map.put("title", name);
-                map.put("image", checked_icon.getResourceId(status, 0));
-                map.put("status", status);
-                list.add(map);
-            } while (listcontent.moveToNext());
-        }
-        listcontent.close();
-        return list;
-    }
-
-
-    //返回键
-    public void backviewonClick(View view) {
-        ListContent.this.finish();
-        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ListContent.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        }
-        return super.onKeyUp(keyCode, event);
+        return db.queryContent(listId);
     }
 
     //回收站与归档按钮操作
     public void onClick(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_MoveToTrash) {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认将 " + name + " 移至回收站？");
+            builder.setTitle("确认将 " + listName + " 移至回收站？");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
-                ContentValues values_trash = new ContentValues();
-                values_trash.put("status", 1);
-                db.update("List", values_trash, "id=" + listid, null);
-                db.update("Content", values_trash, "listid=" + listid, null);
-                values_trash.clear();
+                db.updateList(listId, 1);
                 ListContent.this.finish();
                 overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
             });
             builder.show();
 
         } else if (viewId == R.id.btn_MoveToArchive) {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认将 " + name + " 移至归档？");
+            builder.setTitle("确认将 " + listName + " 移至归档？");
             builder.setNegativeButton("取消", (dialog, which) -> {
             });
             builder.setPositiveButton("确定", (dialog, which) -> {
-                ContentValues values_archive = new ContentValues();
-                values_archive.put("status", 2);
-                db.update("List", values_archive, "id=" + listid, null);
-                values_archive.clear();
+                db.updateList(listId, 2);
+                //Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
                 ListContent.this.finish();
                 overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
             });
@@ -224,17 +137,19 @@ public class ListContent extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    //两表同步
-    public void syncdb() {
-        Cursor listALL = db.query("Content", null, "listid=" + listid, null, null, null, null);
-        countAll = listALL.getCount();
-        listALL.close();
-        Cursor listFinish = db.query("Content", null, "listid=" + listid + " AND isFinish=1", null, null, null, null);
-        countFinish = listFinish.getCount();
-        listFinish.close();
-        ContentValues values_sync = new ContentValues();
-        values_sync.put("countFinish", countFinish);
-        values_sync.put("countAll", countAll);
-        db.update("List", values_sync, "id=" + listid, null);
+    //返回键
+    public void backviewonClick(View view) {
+        ListContent.this.finish();
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ListContent.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
 }
