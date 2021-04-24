@@ -1,5 +1,6 @@
 package com.brian.checklist;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,16 +42,24 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
 
     //清空回收站
     public void ClearTrash(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(trash.this);
-        builder.setTitle("确认清空回收站？");
-        builder.setNegativeButton("取消", (dialog, which) -> {
-        });
-        builder.setPositiveButton("确定", (dialog, which) -> {
-            db.clearTrash();
-            trash.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        });
-        builder.show();
+        final CommonDialog dialog = new CommonDialog(trash.this);
+        dialog.setTitle("您确认要清空回收站吗？")
+                .setPositive("清空").setPositiveColor(Color.parseColor("#ff2d55"))
+                .setNegtive("取消")
+                .setMessage("将立即清空回收站，不能撤销此操作.")
+                .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                    @Override
+                    public void onPositiveClick() {
+                        dialog.dismiss();
+                        db.clearTrash();
+                        trash.this.finish();
+                        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+                    }
+                    @Override
+                    public void onNegtiveClick() {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     //点击事件
@@ -62,28 +71,28 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         String listName = listinfo.get("title").toString();
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(trash.this);
-            builder.setTitle("确认将 " + listName + " 永久删除?");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                db.deleteList(listId);
-                refresh();
-            });
-            builder.show();
+            final CommonDialog dialog = new CommonDialog(trash.this);
+            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+                    .setPositive("删除").setPositiveColor(Color.parseColor("#ff2d55"))
+                    .setNegtive("取消")
+                    .setMessage("将立即清除此清单，不能撤销此操作.")
+                    .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                @Override
+                public void onPositiveClick() {
+                    dialog.dismiss();
+                    db.deleteList(listId);
+                    refresh();
+                }
+                @Override
+                public void onNegtiveClick() {
+                    dialog.dismiss();
+                }
+            }).show();
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
-            //点击删除按钮之后，给出dialog提示
-            AlertDialog.Builder builder = new AlertDialog.Builder(trash.this);
-            builder.setTitle("确认将 " + listName + " 移出回收站?");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
                 db.updateList(listId, 0);
                 refresh();
-            });
-            builder.show();
         }
     }
 
