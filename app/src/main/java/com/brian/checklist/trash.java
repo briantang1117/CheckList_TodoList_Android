@@ -38,20 +38,6 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         return db.queryList(1);
     }
 
-    //返回键
-    public void backviewonClick(View view) {
-        trash.this.finish();
-        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            trash.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        }
-        return super.onKeyUp(keyCode, event);
-    }
 
     //清空回收站
     public void ClearTrash(View view) {
@@ -106,5 +92,20 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         datalist.clear();
         datalist.addAll(getData());
         adapter.notifyDataSetChanged();
+    }
+
+    //返回键
+    public void backviewonClick(View view) {
+        trash.this.finish();
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            trash.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

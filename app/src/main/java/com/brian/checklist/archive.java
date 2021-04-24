@@ -37,21 +37,6 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         return db.queryList(2);
     }
 
-    //back
-    public void backviewonClick(View view) {
-        archive.this.finish();
-        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            archive.this.finish();
-            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-        }
-        return super.onKeyUp(keyCode, event);
-    }
-
     //OnClick
     @Override
     public void onClick(View v) {
@@ -85,7 +70,23 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    //back
+    public void backviewonClick(View view) {
+        archive.this.finish();
+        overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            archive.this.finish();
+            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
     public void refresh() {
+        //刷新list
         datalist.clear();
         datalist.addAll(getData());
         adapter.notifyDataSetChanged();
