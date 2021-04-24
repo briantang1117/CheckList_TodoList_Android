@@ -4,8 +4,12 @@
 交互设计技术课程作业，使用 Android Studio 开发，一个类似于 Todo list 的工具类应用
 
 ## Progres
--  2020年4月22日
+-  2021年4月22日
    -  发布release版本v1.0.0-beta2
--  2020年4月23日
+-  2021年4月23日
    -  新建uiimprove分支，改进UI
    -  AddListActivity中edittext自动获取焦点并弹出软键盘
+-  2021年4月24日
+   -  修改首页BNV布局
+   -  使用DAO重构数据库操作
+   -  发布CheckList-v1.0.1版本
