@@ -96,8 +96,9 @@ public class CommonDialog extends Dialog {
         }
         if (!TextUtils.isEmpty(message)) {
             messageTv.setText(message);
+            messageTv.setVisibility(View.VISIBLE);
         }else {
-            messageTv.setText("将立即清除此清单，不能撤销此操作。");
+            messageTv.setVisibility(View.GONE);
         }
         //如果设置按钮的文字
         if (!TextUtils.isEmpty(positive)) {

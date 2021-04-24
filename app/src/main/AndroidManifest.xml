@@ -13,7 +13,9 @@
         <activity android:name=".archive" />
         <activity android:name=".trash" />
         <activity android:name=".about" />
-        <activity android:name=".ListContent" />
+        <activity
+            android:name=".ListContent"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".AddListActivity"
             android:windowSoftInputMode="adjustResize" />

@@ -1,9 +1,14 @@
 package com.brian.checklist;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +30,7 @@ public class ListContent extends AppCompatActivity {
     private ListView listView;
     private ListViewAdapterContent adapter;
     private List<Map<String, Object>> datalist;
+    private EditText addcontent;
 
 
     @Override
@@ -51,7 +58,8 @@ public class ListContent extends AppCompatActivity {
         datalist = getData();
         adapter = new ListViewAdapterContent(ListContent.this, datalist);
         View addView = getLayoutInflater().inflate(R.layout.content_item_add, null);
-        ImageView addbtn = addView.findViewById(R.id.add_icon);
+        //ConstraintLayout addbtn = addView.findViewById(R.id.add_icon);
+        addcontent = addView.findViewById(R.id.addcontent);
         listView.addFooterView(addView, null, false);
         listView.setAdapter(adapter);
 
@@ -73,26 +81,36 @@ public class ListContent extends AppCompatActivity {
             return true;
         });
 
-        addbtn.setOnClickListener(v -> {
-            final EditText add_content_text = new EditText(ListContent.this);
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("请添加内容");
-            builder.setView(add_content_text);
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                String contentName = add_content_text.getText().toString().trim();
+        addcontent.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||(event!=null&&event.getKeyCode()== KeyEvent.KEYCODE_ENTER))
+            {
+                String contentName = addcontent.getText().toString().trim();
                 if (contentName.length() != 0) {
                     db.addContent(contentName, listId);
                     refresh();
+                    addcontent.setText("");
+                    addcontent.clearFocus();
+                    hidekeyboard(v);
                 } else {
-                    Toast.makeText(ListContent.this, "请输入内容", Toast.LENGTH_SHORT).show();
+                    hidekeyboard(v);
                 }
-            });
-            builder.show();
+                return true;
+            }
+            return false;
         });
     }
 
+    public void hidekeyboard(View v){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent (MotionEvent ev){
+        DisplayUtils.hideInputWhenTouchOtherView(this, ev, null);
+        addcontent.clearFocus();
+        return super.dispatchTouchEvent(ev);
+    }
 
     public List<Map<String, Object>> getData() {
         return db.queryContent(listId);
