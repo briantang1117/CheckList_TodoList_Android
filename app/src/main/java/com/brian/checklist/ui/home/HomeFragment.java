@@ -1,6 +1,7 @@
 package com.brian.checklist.ui.home;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.brian.checklist.CommonDialog;
 import com.brian.checklist.ListContent;
 import com.brian.checklist.ListViewAdapter;
 import com.brian.checklist.MyDatabaseDAO;
 import com.brian.checklist.R;
+import com.brian.checklist.trash;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,17 +58,23 @@ public class HomeFragment extends Fragment {
             HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
             int listId = (int) listinfo.get("id");
             String name = (String) listinfo.get("title");
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("确认将 " + name + " 移至回收站？");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                db.updateList(listId, 1);
-                refresh();
-                //Toast.makeText(ListContent.this, "已移动至回收站", Toast.LENGTH_SHORT).show();
-            });
-            builder.show();
+            final CommonDialog dialog = new CommonDialog(getActivity());
+            dialog.setTitle("您确认要删除 "+name+" 吗？")
+                    .setPositive("删除").setPositiveColor(Color.parseColor("#ff2d55"))
+                    .setNegtive("取消")
+                    .setMessage("将移到回收站，可从回收站恢复此清单.")
+                    .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                        @Override
+                        public void onPositiveClick() {
+                            dialog.dismiss();
+                            db.updateList(listId, 1);
+                            refresh();
+                        }
+                        @Override
+                        public void onNegtiveClick() {
+                            dialog.dismiss();
+                        }
+                    }).show();
             return true;
         });
 

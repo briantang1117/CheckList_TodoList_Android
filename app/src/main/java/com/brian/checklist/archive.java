@@ -1,5 +1,6 @@
 package com.brian.checklist;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -46,27 +47,29 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         String listName = listinfo.get("title").toString();
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(archive.this);
-            builder.setTitle("确认将 " + listName + " 移至回收站？");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                db.updateList(listId, 1);
-                refresh();
-            });
-            builder.show();
+            final CommonDialog dialog = new CommonDialog(archive.this);
+            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+                    .setPositive("删除")
+                    .setPositiveColor(Color.parseColor("#ff2d55"))
+                    .setNegtive("取消")
+                    .setMessage("将移到回收站，可从回收站恢复此清单.")
+                    .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                        @Override
+                        public void onPositiveClick() {
+                            dialog.dismiss();
+                            db.updateList(listId, 1);
+                            refresh();
+                        }
+                        @Override
+                        public void onNegtiveClick() {
+                            dialog.dismiss();
+                        }
+                    }).show();
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(archive.this);
-            builder.setTitle("确认将 " + listName + " 移出归档?");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
                 db.updateList(listId, 0);
                 refresh();
-            });
-            builder.show();
         }
     }
 

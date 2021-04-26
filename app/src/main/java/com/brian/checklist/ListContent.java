@@ -1,8 +1,14 @@
 package com.brian.checklist;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +30,7 @@ public class ListContent extends AppCompatActivity {
     private ListView listView;
     private ListViewAdapterContent adapter;
     private List<Map<String, Object>> datalist;
+    private EditText addcontent;
 
 
     @Override
@@ -50,7 +58,8 @@ public class ListContent extends AppCompatActivity {
         datalist = getData();
         adapter = new ListViewAdapterContent(ListContent.this, datalist);
         View addView = getLayoutInflater().inflate(R.layout.content_item_add, null);
-        ImageView addbtn = addView.findViewById(R.id.add_icon);
+        //ConstraintLayout addbtn = addView.findViewById(R.id.add_icon);
+        addcontent = addView.findViewById(R.id.addcontent);
         listView.addFooterView(addView, null, false);
         listView.setAdapter(adapter);
 
@@ -67,31 +76,39 @@ public class ListContent extends AppCompatActivity {
             HashMap<String, Object> contentinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);
             int contentId = (int) contentinfo.get("id");
             //Toast.makeText(ListContent.this, String.valueOf(contentid), Toast.LENGTH_SHORT).show();
-            db.deleteContent(contentId,listId);
+            db.deleteContent(contentId, listId);
             refresh();
             return true;
         });
 
-        addbtn.setOnClickListener(v -> {
-            final EditText add_content_text = new EditText(ListContent.this);
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("请添加内容");
-            builder.setView(add_content_text);
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                String contentName = add_content_text.getText().toString().trim();
+        addcontent.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||(event!=null&&event.getKeyCode()== KeyEvent.KEYCODE_ENTER))
+            {
+                String contentName = addcontent.getText().toString().trim();
                 if (contentName.length() != 0) {
                     db.addContent(contentName, listId);
                     refresh();
+                    addcontent.setText("");
                 } else {
-                    Toast.makeText(ListContent.this, "请输入内容", Toast.LENGTH_SHORT).show();
+                    hidekeyboard(v);
                 }
-            });
-            builder.show();
+                return true;
+            }
+            return false;
         });
     }
 
+    public void hidekeyboard(View v){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent (MotionEvent ev){
+        DisplayUtils.hideInputWhenTouchOtherView(this, ev, null);
+        addcontent.clearFocus();
+        return super.dispatchTouchEvent(ev);
+    }
 
     public List<Map<String, Object>> getData() {
         return db.queryContent(listId);
@@ -101,29 +118,46 @@ public class ListContent extends AppCompatActivity {
     public void onClick(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_MoveToTrash) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认将 " + listName + " 移至回收站？");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                db.updateList(listId, 1);
-                ListContent.this.finish();
-                overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-            });
-            builder.show();
-
+            final CommonDialog dialog = new CommonDialog(ListContent.this);
+            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+                    .setPositive("删除")
+                    .setPositiveColor(Color.parseColor("#ff2d55"))
+                    .setNegtive("取消")
+                    .setMessage("将移到回收站，可从回收站恢复此清单.")
+                    .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                        @Override
+                        public void onPositiveClick() {
+                            dialog.dismiss();
+                            db.updateList(listId, 1);
+                            ListContent.this.finish();
+                            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+                        }
+                        @Override
+                        public void onNegtiveClick() {
+                            dialog.dismiss();
+                        }
+                    }).show();
         } else if (viewId == R.id.btn_MoveToArchive) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListContent.this);
-            builder.setTitle("确认将 " + listName + " 移至归档？");
-            builder.setNegativeButton("取消", (dialog, which) -> {
-            });
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                db.updateList(listId, 2);
-                //Toast.makeText(ListContent.this, "已归档", Toast.LENGTH_SHORT).show();
-                ListContent.this.finish();
-                overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
-            });
-            builder.show();
+            final CommonDialog dialog = new CommonDialog(ListContent.this);
+            dialog.setTitle("您确认要归档 "+listName+" 吗？")
+                    .setPositive("归档")
+                    .setPositiveColor(Color.parseColor("#ff9500"))
+                    .setNegtive("取消")
+                    .setMessage("将移到归档，可从归档恢复此清单.")
+                    .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
+                        @Override
+                        public void onPositiveClick() {
+                            dialog.dismiss();
+                            db.updateList(listId, 2);
+                            ListContent.this.finish();
+                            overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
+                        }
+                        @Override
+                        public void onNegtiveClick() {
+                            dialog.dismiss();
+                        }
+                    }).show();
+
         } else {
             Toast.makeText(ListContent.this, "发生严重错误！", Toast.LENGTH_SHORT).show();
         }
