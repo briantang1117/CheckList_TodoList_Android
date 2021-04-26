@@ -14,3 +14,8 @@
    -  使用DAO重构数据库操作
    -  发布CheckList-v1.0.1版本
    -  完全重写添加清单与添加内容方式
+-  2021年4月26日
+   -  各种细节优化
+   -  完成feedback和share的开发
+   -  放弃backup&restore功能
+   -  发布v1.0.3-release版本
