@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
             final CommonDialog dialog = new CommonDialog(archive.this);
-            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+            dialog.setTitle("您确认要删除 " + listName + " 吗？")
                     .setPositive("删除")
                     .setPositiveColor(Color.parseColor("#ff2d55"))
                     .setNegtive("取消")
@@ -60,6 +59,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
                             db.updateList(listId, 1);
                             refresh();
                         }
+
                         @Override
                         public void onNegtiveClick() {
                             dialog.dismiss();
@@ -68,8 +68,8 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
-                db.updateList(listId, 0);
-                refresh();
+            db.updateList(listId, 0);
+            refresh();
         }
     }
 

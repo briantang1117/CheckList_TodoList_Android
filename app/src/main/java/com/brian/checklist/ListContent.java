@@ -3,21 +3,17 @@ package com.brian.checklist;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,8 +78,7 @@ public class ListContent extends AppCompatActivity {
         });
 
         addcontent.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE ||(event!=null&&event.getKeyCode()== KeyEvent.KEYCODE_ENTER))
-            {
+            if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 String contentName = addcontent.getText().toString().trim();
                 if (contentName.length() != 0) {
                     db.addContent(contentName, listId);
@@ -99,13 +94,13 @@ public class ListContent extends AppCompatActivity {
         });
     }
 
-    public void hidekeyboard(View v){
+    public void hidekeyboard(View v) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override
-    public boolean dispatchTouchEvent (MotionEvent ev){
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         DisplayUtils.hideInputWhenTouchOtherView(this, ev, null);
         addcontent.clearFocus();
         return super.dispatchTouchEvent(ev);
@@ -120,7 +115,7 @@ public class ListContent extends AppCompatActivity {
         int viewId = view.getId();
         if (viewId == R.id.btn_MoveToTrash) {
             final CommonDialog dialog = new CommonDialog(ListContent.this);
-            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+            dialog.setTitle("您确认要删除 " + listName + " 吗？")
                     .setPositive("删除")
                     .setPositiveColor(Color.parseColor("#ff2d55"))
                     .setNegtive("取消")
@@ -133,6 +128,7 @@ public class ListContent extends AppCompatActivity {
                             ListContent.this.finish();
                             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
                         }
+
                         @Override
                         public void onNegtiveClick() {
                             dialog.dismiss();
@@ -140,7 +136,7 @@ public class ListContent extends AppCompatActivity {
                     }).show();
         } else if (viewId == R.id.btn_MoveToArchive) {
             final CommonDialog dialog = new CommonDialog(ListContent.this);
-            dialog.setTitle("您确认要归档 "+listName+" 吗？")
+            dialog.setTitle("您确认要归档 " + listName + " 吗？")
                     .setPositive("归档")
                     .setPositiveColor(Color.parseColor("#ff9500"))
                     .setNegtive("取消")
@@ -153,6 +149,7 @@ public class ListContent extends AppCompatActivity {
                             ListContent.this.finish();
                             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
                         }
+
                         @Override
                         public void onNegtiveClick() {
                             dialog.dismiss();

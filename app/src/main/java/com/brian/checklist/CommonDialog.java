@@ -2,11 +2,9 @@ package com.brian.checklist;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -19,17 +17,17 @@ public class CommonDialog extends Dialog {
     /**
      * 显示的标题
      */
-    private TextView titleTv ;
+    private TextView titleTv;
 
     /**
      * 显示的消息
      */
-    private TextView messageTv ;
+    private TextView messageTv;
 
     /**
      * 确认和取消按钮
      */
-    private TextView negtiveBn ,positiveBn;
+    private TextView negtiveBn, positiveBn;
 
     //
     public CommonDialog(Context context) {
@@ -41,7 +39,7 @@ public class CommonDialog extends Dialog {
      */
     private String message;
     private String title;
-    private String positive,negtive;
+    private String positive, negtive;
     private int color;
 
 
@@ -67,7 +65,7 @@ public class CommonDialog extends Dialog {
         positiveBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( onClickBottomListener!= null) {
+                if (onClickBottomListener != null) {
                     onClickBottomListener.onPositiveClick();
                 }
             }
@@ -76,7 +74,7 @@ public class CommonDialog extends Dialog {
         negtiveBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( onClickBottomListener!= null) {
+                if (onClickBottomListener != null) {
                     onClickBottomListener.onNegtiveClick();
                 }
             }
@@ -91,24 +89,24 @@ public class CommonDialog extends Dialog {
         if (!TextUtils.isEmpty(title)) {
             titleTv.setText(title);
             titleTv.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             titleTv.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(message)) {
             messageTv.setText(message);
             messageTv.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             messageTv.setVisibility(View.GONE);
         }
         //如果设置按钮的文字
         if (!TextUtils.isEmpty(positive)) {
             positiveBn.setText(positive);
-        }else {
+        } else {
             positiveBn.setText("确定");
         }
         if (!TextUtils.isEmpty(negtive)) {
             negtiveBn.setText(negtive);
-        }else {
+        } else {
             negtiveBn.setText("取消");
         }
         //颜色
@@ -135,15 +133,18 @@ public class CommonDialog extends Dialog {
      * 设置确定取消按钮的回调
      */
     public OnClickBottomListener onClickBottomListener;
+
     public CommonDialog setOnClickBottomListener(OnClickBottomListener onClickBottomListener) {
         this.onClickBottomListener = onClickBottomListener;
         return this;
     }
-    public interface OnClickBottomListener{
+
+    public interface OnClickBottomListener {
         /**
          * 点击确定按钮事件
          */
         public void onPositiveClick();
+
         /**
          * 点击取消按钮事件
          */
@@ -156,7 +157,7 @@ public class CommonDialog extends Dialog {
 
     public CommonDialog setMessage(String message) {
         this.message = message;
-        return this ;
+        return this;
     }
 
     public String getTitle() {
@@ -165,7 +166,7 @@ public class CommonDialog extends Dialog {
 
     public CommonDialog setTitle(String title) {
         this.title = title;
-        return this ;
+        return this;
     }
 
     public String getPositive() {
@@ -174,7 +175,7 @@ public class CommonDialog extends Dialog {
 
     public CommonDialog setPositive(String positive) {
         this.positive = positive;
-        return this ;
+        return this;
     }
 
     public CommonDialog setPositiveColor(int color) {
@@ -188,7 +189,7 @@ public class CommonDialog extends Dialog {
 
     public CommonDialog setNegtive(String negtive) {
         this.negtive = negtive;
-        return this ;
+        return this;
     }
 
 }
