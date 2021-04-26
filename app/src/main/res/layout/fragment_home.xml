@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:paddingBottom="190dp"
+        android:paddingBottom="130dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 

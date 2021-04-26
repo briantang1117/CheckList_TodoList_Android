@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextconstraintLayout"
-        android:paddingBottom="190dp"
+        android:paddingBottom="130dp"
         android:clipToPadding="false">
 
         <LinearLayout
@@ -219,6 +219,7 @@
                     app:layout_constraintTop_toBottomOf="@id/btn_Archive" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="16dp"

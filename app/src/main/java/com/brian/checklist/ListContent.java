@@ -89,6 +89,7 @@ public class ListContent extends AppCompatActivity {
                     db.addContent(contentName, listId);
                     refresh();
                     addcontent.setText("");
+                    listView.setSelection(listView.getBottom());
                 } else {
                     hidekeyboard(v);
                 }
