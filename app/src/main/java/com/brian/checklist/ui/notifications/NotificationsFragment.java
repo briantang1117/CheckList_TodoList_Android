@@ -54,10 +54,11 @@ public class NotificationsFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
             intent.putExtra(Intent.EXTRA_EMAIL, email);
             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback:CheckList 问题反馈"); // 主题
-            startActivity(intent.createChooser(intent,"请选择邮件应用"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent.createChooser(intent, "请选择邮件应用"));
         });
         bt_share.setOnClickListener(view -> {
-            shareText(getActivity(),"“CheckList 清单”下载地址：https://gitee.com/briantang/CheckList_Android/releases");
+            shareText(getActivity(), "“CheckList 清单”下载地址：https://gitee.com/briantang/CheckList_Android/releases");
         });
         return root;
     }

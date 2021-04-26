@@ -27,8 +27,7 @@ public class AddListActivity extends AppCompatActivity {
 
         EditText addlist = findViewById(R.id.listName);
         addlist.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE ||(event!=null&&event.getKeyCode()== KeyEvent.KEYCODE_ENTER))
-            {
+            if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 String listNmae = listNameInput.getText().toString().trim();
                 //确保list名字不为空
                 if (listNmae.length() != 0) {

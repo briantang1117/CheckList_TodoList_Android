@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.brian.checklist.CommonDialog;
@@ -18,7 +17,6 @@ import com.brian.checklist.ListContent;
 import com.brian.checklist.ListViewAdapter;
 import com.brian.checklist.MyDatabaseDAO;
 import com.brian.checklist.R;
-import com.brian.checklist.trash;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +57,7 @@ public class HomeFragment extends Fragment {
             int listId = (int) listinfo.get("id");
             String name = (String) listinfo.get("title");
             final CommonDialog dialog = new CommonDialog(getActivity());
-            dialog.setTitle("您确认要删除 "+name+" 吗？")
+            dialog.setTitle("您确认要删除 " + name + " 吗？")
                     .setPositive("删除").setPositiveColor(Color.parseColor("#ff2d55"))
                     .setNegtive("取消")
                     .setMessage("将移到回收站，可从回收站恢复此清单.")
@@ -70,6 +68,7 @@ public class HomeFragment extends Fragment {
                             db.updateList(listId, 1);
                             refresh();
                         }
+
                         @Override
                         public void onNegtiveClick() {
                             dialog.dismiss();

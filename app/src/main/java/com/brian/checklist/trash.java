@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
@@ -55,6 +54,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
                         trash.this.finish();
                         overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
                     }
+
                     @Override
                     public void onNegtiveClick() {
                         dialog.dismiss();
@@ -72,27 +72,28 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
         //点击删除
         if (btn_id == R.id.btn_trash_archive_delete) {
             final CommonDialog dialog = new CommonDialog(trash.this);
-            dialog.setTitle("您确认要删除 "+listName+" 吗？")
+            dialog.setTitle("您确认要删除 " + listName + " 吗？")
                     .setPositive("删除").setPositiveColor(Color.parseColor("#ff2d55"))
                     .setNegtive("取消")
                     .setMessage("将立即清除此清单，不能撤销此操作.")
                     .setOnClickBottomListener(new CommonDialog.OnClickBottomListener() {
-                @Override
-                public void onPositiveClick() {
-                    dialog.dismiss();
-                    db.deleteList(listId);
-                    refresh();
-                }
-                @Override
-                public void onNegtiveClick() {
-                    dialog.dismiss();
-                }
-            }).show();
+                        @Override
+                        public void onPositiveClick() {
+                            dialog.dismiss();
+                            db.deleteList(listId);
+                            refresh();
+                        }
+
+                        @Override
+                        public void onNegtiveClick() {
+                            dialog.dismiss();
+                        }
+                    }).show();
         }
         //点击还原
         else if (btn_id == R.id.btn_trash_archive_recover) {
-                db.updateList(listId, 0);
-                refresh();
+            db.updateList(listId, 0);
+            refresh();
         }
     }
 

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,13 +126,13 @@ public class MyDatabaseDAO {
         values.put("status", 0);
         db.insert("Content", null, values);
         values.clear();
-        syncdblite(db,listId);
+        syncdblite(db, listId);
     }
 
-    public void deleteContent(int contentId,int listId) {
+    public void deleteContent(int contentId, int listId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
         db.delete("Content", "id=" + contentId, null);
-        syncdblite(db,listId);
+        syncdblite(db, listId);
     }
 
     public void updateContent(int contentId, int contentStatus, int listId) {
@@ -141,7 +140,7 @@ public class MyDatabaseDAO {
         ContentValues values = new ContentValues();
         values.put("isFinish", 1 ^ contentStatus);
         db.update("Content", values, "id=" + contentId, null);
-        syncdblite(db,listId);
+        syncdblite(db, listId);
     }
 
     private void syncdblite(SQLiteDatabase db, int listId) {
