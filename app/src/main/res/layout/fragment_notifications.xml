@@ -216,6 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/E"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/btn_Archive" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
