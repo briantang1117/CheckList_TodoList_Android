@@ -17,6 +17,7 @@ import com.brian.checklist.ListContent;
 import com.brian.checklist.ListViewAdapter;
 import com.brian.checklist.MyDatabaseDAO;
 import com.brian.checklist.R;
+import com.brian.checklist.search;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +80,15 @@ public class HomeFragment extends Fragment {
 
         ImageView bt_search = root.findViewById(R.id.btn_search);
 
-        bt_search.setOnClickListener(v -> Toast.makeText(getActivity(), "正在开发中", Toast.LENGTH_SHORT).show());
+        bt_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(getActivity(), search.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
+            }
+        });
 
         return root;
     }
