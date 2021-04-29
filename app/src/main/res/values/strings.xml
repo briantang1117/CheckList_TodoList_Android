@@ -19,5 +19,6 @@
     <string name="setting_about">关于 CheckList 清单</string>
     <string name="clear_trash">清空回收站</string>
     <string name="clicktoadd">点击添加</string>
+    <string name="search">搜索</string>
 
 </resources>
