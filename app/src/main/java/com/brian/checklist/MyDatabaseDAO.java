@@ -156,4 +156,32 @@ public class MyDatabaseDAO {
         db.update("List", values_sync, "id=" + listId, null);
         values_sync.clear();
     }
+
+    public List<Map<String,Object>> searchList(String listname) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        List<Map<String,Object>> searchResult = new ArrayList<>();
+        @SuppressLint("Recycle") TypedArray load_icon = mcontext.getResources().obtainTypedArray(R.array.load_icon);
+        Cursor ListList = db.rawQuery("select * from List where listname like '%"+listname+"%'",null);
+        if(ListList.moveToFirst()){
+            do{
+                String name = ListList.getString(ListList.getColumnIndex("listname"));
+                int listid = ListList.getInt(ListList.getColumnIndex("id"));
+                int countAll = ListList.getInt(ListList.getColumnIndex("countAll"));
+                int countFinish = ListList.getInt(ListList.getColumnIndex("countFinish"));
+                int load = 0;
+                if(countAll != 0){
+                    load = countFinish * 100 / countAll;
+                }
+                Map<String,Object> map = new HashMap<>();
+                map.put("id",listid);
+                map.put("title",name);
+                map.put("info",countFinish + "完成  " + (countAll-countFinish) + "待办");
+                map.put("image",load_icon.getResourceId(load / 10 , 0));
+                searchResult.add(map);
+            } while (ListList.moveToNext());
+        }
+        ListList.close();
+        db.close();
+        return searchResult;
+    }
 }

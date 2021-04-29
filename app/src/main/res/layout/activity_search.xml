@@ -51,16 +51,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:divider="@null"
-        android:id="@+id/list_view_archive"
+    <EditText
+        android:id="@+id/search_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none"
-        android:paddingBottom="60dp"
-        android:clipToPadding="false"
+        android:background="@drawable/edit_normal"
+        android:hint="搜索"
+        android:imeOptions="actionSearch"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <ListView
+        android:id="@+id/resultList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/search_text" />
+
+
+
 
     <ImageView
         android:id="@+id/empty"
