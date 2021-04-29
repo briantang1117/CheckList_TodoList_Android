@@ -19,3 +19,5 @@
    -  完成feedback和share的开发
    -  放弃backup&restore功能
    -  发布v1.0.3-release版本
+-  2021年4月29日
+   -  许禾昕：完成搜索页面初步开发
