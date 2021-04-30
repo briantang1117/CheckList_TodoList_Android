@@ -30,6 +30,8 @@ public class search extends AppCompatActivity {
         listView = findViewById(R.id.resultList);//指定listview
         datalist = new ArrayList<>();//初始化datalist为空list 不是null java中空和null不一样
         adapter = new ListViewAdapter(search.this,datalist);//初始化lv的adapter，datalist为上面的空
+        View search_foot = getLayoutInflater().inflate(R.layout.search_foot, null);
+        listView.addFooterView(search_foot, null, false);
         listView.setAdapter(adapter);//设置lv的adapter
         EditText searchList = findViewById(R.id.search_text);//指定et
         searchList.setOnEditorActionListener((v, actionId, event) -> {//设置键盘搜索键和回车的监听

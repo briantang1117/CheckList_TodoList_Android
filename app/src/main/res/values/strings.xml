@@ -20,5 +20,6 @@
     <string name="clear_trash">清空回收站</string>
     <string name="clicktoadd">点击添加</string>
     <string name="search">搜索</string>
-
+    <string name="cancel">取消</string>
+    <string name="search_foot">没有更多了</string>
 </resources>
