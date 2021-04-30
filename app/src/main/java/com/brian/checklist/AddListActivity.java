@@ -25,8 +25,8 @@ public class AddListActivity extends AppCompatActivity {
         listNameInput.setFocusableInTouchMode(true);
         listNameInput.requestFocus();
 
-        EditText addlist = findViewById(R.id.listName);
-        addlist.setOnEditorActionListener((v, actionId, event) -> {
+        listNameInput = findViewById(R.id.listName);
+        listNameInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 String listNmae = listNameInput.getText().toString().trim();
                 //确保list名字不为空
