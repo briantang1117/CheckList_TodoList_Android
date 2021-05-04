@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="BottomNavigationViewTheme" parent="Widget.MaterialComponents.BottomNavigationView">
-        <!--波纹颜色无-->
-        <item name="itemRippleColor">@null</item>
-    </style>
-</resources>

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside">
 
@@ -17,6 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true"
             android:onClick="backviewonClick"
@@ -43,6 +45,7 @@
                 android:textColor="@color/classicalBlue"
                 android:textSize="21sp"
                 android:textStyle="bold"
+                android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -79,6 +82,7 @@
             android:background="@drawable/edit_normal"
             android:imeOptions="actionDone"
             android:hint="@string/addplaceholder"
+            android:textColorHint="@color/grey117"
             android:importantForAutofill="no"
             android:inputType="text"
             android:textAlignment="center"

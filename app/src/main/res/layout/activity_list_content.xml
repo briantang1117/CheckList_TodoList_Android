@@ -9,12 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titletext"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="106dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +59,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="@string/NaN"
+                        android:includeFontPadding="false"
                         android:textColor="@color/classicalBlue"
                         android:textSize="21sp"
                         android:textStyle="bold"
@@ -77,9 +81,9 @@
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_btn_trash_21"
             android:background="@drawable/icon_selector"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/titletext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titletext"
             android:clickable="true"
             android:focusable="true"
             app:tint="@color/trash"
@@ -95,9 +99,9 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_btn_archive_21"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/titletext"
             app:layout_constraintEnd_toStartOf="@id/btn_MoveToTrash"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titletext"
             app:tint="@color/archive"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>

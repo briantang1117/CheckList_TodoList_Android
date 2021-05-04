@@ -8,13 +8,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleTextconstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:includeFontPadding="false"
             android:text="@string/title_setting"
             android:textColor="@color/classicalBlue"
             android:textSize="21sp"

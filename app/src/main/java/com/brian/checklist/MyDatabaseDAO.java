@@ -161,7 +161,7 @@ public class MyDatabaseDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         List<Map<String,Object>> searchResult = new ArrayList<>();
         @SuppressLint("Recycle") TypedArray load_icon = mcontext.getResources().obtainTypedArray(R.array.load_icon);
-        Cursor ListList = db.rawQuery("select * from List where listname like '%"+listname+"%'",null);
+        Cursor ListList = db.rawQuery("select * from List where status = 0 and listname like '%"+listname+"%'",null);
         if(ListList.moveToFirst()){
             do{
                 String name = ListList.getString(ListList.getColumnIndex("listname"));

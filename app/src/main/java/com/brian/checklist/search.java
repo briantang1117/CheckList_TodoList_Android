@@ -2,14 +2,16 @@ package com.brian.checklist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class search extends AppCompatActivity {
     private ListView listView;//lv
     private ListViewAdapter adapter;//lv的是配置
     private List<Map<String ,Object>> datalist;//datalist数据集，也就是lv的内容
+    private EditText searchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,10 @@ public class search extends AppCompatActivity {
         View search_foot = getLayoutInflater().inflate(R.layout.search_foot, null);
         listView.addFooterView(search_foot, null, false);
         listView.setAdapter(adapter);//设置lv的adapter
-        EditText searchList = findViewById(R.id.search_text);//指定et
+        searchList = findViewById(R.id.search_text);//指定et
+        searchList.setFocusable(true);
+        searchList.setFocusableInTouchMode(true);
+        searchList.requestFocus();
         searchList.setOnEditorActionListener((v, actionId, event) -> {//设置键盘搜索键和回车的监听
             if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {//如果有按下搜索/回车的order
                 String listName = searchList.getText().toString().trim();//获得et中的文字
@@ -42,6 +48,7 @@ public class search extends AppCompatActivity {
                     datalist.addAll(getData(listName));//从数据库中查找并把结果添加到datalist
                 }
                 adapter.notifyDataSetChanged();//刷新listview
+                hidekeyboard(v);
                 return true;//结束
             }
             return false;//结束
@@ -65,5 +72,17 @@ public class search extends AppCompatActivity {
             overridePendingTransition(R.anim.no_anim, R.anim.trans_out);
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    public void hidekeyboard(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        DisplayUtils.hideInputWhenTouchOtherView(this, ev, null);
+        Log.d("TAG", "dispatchTouchEvent: 1");
+        return super.dispatchTouchEvent(ev);
     }
 }

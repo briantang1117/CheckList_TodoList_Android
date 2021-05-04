@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckList">
-        <activity android:name=".search"></activity>
+        <activity
+            android:name=".search"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".archive" />
         <activity android:name=".trash" />
         <activity android:name=".about" />

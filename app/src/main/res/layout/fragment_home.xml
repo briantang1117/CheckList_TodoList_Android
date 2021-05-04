@@ -10,15 +10,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/titletext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/app_name_cn"
             android:textColor="@color/classicalBlue"
+            android:includeFontPadding="false"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:textSize="21sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,16 +30,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:background="@drawable/icon_selector"
             android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:padding="4dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_btn_search_21"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/titletext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titletext"
             app:tint="@color/classicalBlue"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -47,7 +53,7 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:paddingBottom="130dp"
+        android:paddingBottom="120dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -61,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

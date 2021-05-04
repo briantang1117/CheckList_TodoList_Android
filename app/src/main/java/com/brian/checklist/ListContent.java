@@ -97,6 +97,7 @@ public class ListContent extends AppCompatActivity {
     public void hidekeyboard(View v) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        addcontent.clearFocus();
     }
 
     @Override

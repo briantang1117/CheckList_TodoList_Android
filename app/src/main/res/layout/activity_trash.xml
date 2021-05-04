@@ -10,14 +10,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titletext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:clickable="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:onClick="backviewonClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="@string/setting_trash"
+                android:includeFontPadding="false"
                 android:textColor="@color/classicalBlue"
                 android:textSize="21sp"
                 android:textStyle="bold"
@@ -72,9 +76,9 @@
             android:layout_marginEnd="16dp"
             android:textColor="@color/trash"
             android:background="@drawable/icon_selector"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/titletext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titletext"
             android:text="@string/clear_trash"
             android:textSize="14sp"
             android:onClick="ClearTrash" />
