@@ -3,6 +3,7 @@ package com.brian.checklist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,10 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +55,19 @@ public class search extends AppCompatActivity {
                 return true;//结束
             }
             return false;//结束
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String,Object> listinfo = (HashMap<String,Object>)listView.getItemAtPosition(position);
+                Log.d("aaa",listinfo.toString());
+                String listId = listinfo.get("id").toString();
+                Intent intent = new Intent();
+                intent.setClass(search.this,ListContent.class);
+                intent.putExtra("listid",listId);
+                startActivity(intent);
+                overridePendingTransition(R.anim.trans_in,R.anim.no_anim);
+            }
         });
     }
 
