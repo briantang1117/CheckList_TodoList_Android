@@ -3,6 +3,7 @@ package com.brian.checklist.ui.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,8 @@ public class HomeFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             HashMap<String, Object> listinfo = (HashMap<String, Object>) listView.getItemAtPosition(position);//SimpleAdapter返回Map
+            Log.d("onClick",listinfo.toString());
             String listid = listinfo.get("id").toString();
-
             Intent intent = new Intent();
             intent.setClass(getActivity(), ListContent.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
             intent.putExtra("listid", listid);
