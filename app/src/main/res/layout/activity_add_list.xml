@@ -72,6 +72,21 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <TextView
+            android:id="@+id/listTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/edit_normal"
+            android:hint="@string/dateplaceholder"
+            android:textColorHint="@color/grey117"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
         <EditText
             android:id="@+id/listName"
             android:layout_width="match_parent"
@@ -88,7 +103,9 @@
             android:textAlignment="center"
             android:textCursorDrawable="@drawable/coursor_normal"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/listTime" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
