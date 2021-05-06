@@ -18,8 +18,8 @@ android {
         applicationId "com.brian.checklist"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 12
-        versionName '1.0.3'
+        versionCode 30
+        versionName '1.0.4'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.'brian&asteriod'
