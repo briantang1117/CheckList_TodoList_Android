@@ -7,7 +7,10 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +24,14 @@ public class MyDatabaseDAO {
         mcontext = context;
     }
 
-    public long addList(String listName) {
+    public long addList(String listName, long listDate) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
         ContentValues values = new ContentValues();
         values.put("listname", listName);
         values.put("countAll", 0);
         values.put("countFinish", 0);
         values.put("status", 0);
+        values.put("deadline", listDate);
         long rowid = db.insert("List", null, values);
         values.clear();
         return rowid;
@@ -55,27 +59,63 @@ public class MyDatabaseDAO {
         values.clear();
     }
 
-    public List<Map<String, Object>> queryList(int status) {
+    public List<Map<String, Object>> queryList(int method, int status, String listname) {
+        //method 0 = id,1 = name
         SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
         List<Map<String, Object>> result = new ArrayList<>();
+        Cursor listList;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         @SuppressLint("Recycle") TypedArray load_icon = mcontext.getResources().obtainTypedArray(R.array.load_icon);
-        Cursor listList = db.query("List", null, "status=" + status, null, null, null, null);
+        if (method == 0) {
+            listList = db.query("List", null, "status=" + status, null, null, null, null);
+        } else {
+            listList = db.rawQuery("select * from List where status = 0 and listname like '%" + listname + "%'", null);
+        }
         if (listList.moveToFirst()) {
             do {
                 //然后通过Cursor的getColumnIndex()获取某一列中所对应的位置的索引
+                String ExtraString = "";
+                int ddlstatus = 0, isFinish = 0;
+                Map<String, Object> map = new HashMap<>();
                 String name = listList.getString(listList.getColumnIndex("listname"));
                 int listid = listList.getInt((listList.getColumnIndex("id")));
+                map.put("id", listid);
+                map.put("title", name);
                 int countAll = listList.getInt(listList.getColumnIndex("countAll"));
                 int countFinish = listList.getInt(listList.getColumnIndex("countFinish"));
                 int load = 0;
                 if (countAll != 0) {
                     load = countFinish * 100 / countAll;
+                    if (load == 100) {
+                        isFinish = 1;
+                    }
                 }
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", listid);
                 map.put("image", load_icon.getResourceId(load / 10, 0));
-                map.put("title", name);
-                map.put("info", countFinish + "完成  " + (countAll - countFinish) + "待办");
+                //时间计算
+                Long ddl = listList.getLong(listList.getColumnIndex("deadline"));//截止时间戳
+                Date nowTime = new Date(System.currentTimeMillis());
+                String todayDate = sdf.format(nowTime);
+                long todayTimeStamp = 0;
+                try {
+                    todayTimeStamp = sdf.parse(todayDate).getTime() / 1000;//今天的时间戳
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (ddl > todayTimeStamp) {//没过期 返回剩余天数
+                    long diff = ddl - todayTimeStamp;
+                    long days = diff / (60 * 60 * 24);
+                    ExtraString = String.valueOf(days) + "天后";
+
+                } else if (ddl == todayTimeStamp) {//当天 返回"今天"
+                    ExtraString = "今天";
+                } else {//过期了 返回不一样的图片，暂无
+                    ExtraString = "已过期";
+                    ddlstatus = 1;
+                }
+                //时间结束
+                map.put("ddl", ddlstatus);
+                map.put("isFinish", isFinish);
+                map.put("info", countFinish + "完成  " + (countAll - countFinish) + "待办 " + ExtraString);
                 result.add(map);
             } while (listList.moveToNext());
         }
@@ -155,33 +195,5 @@ public class MyDatabaseDAO {
         values_sync.put("countAll", countAll);
         db.update("List", values_sync, "id=" + listId, null);
         values_sync.clear();
-    }
-
-    public List<Map<String,Object>> searchList(String listname) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        List<Map<String,Object>> searchResult = new ArrayList<>();
-        @SuppressLint("Recycle") TypedArray load_icon = mcontext.getResources().obtainTypedArray(R.array.load_icon);
-        Cursor ListList = db.rawQuery("select * from List where status = 0 and listname like '%"+listname+"%'",null);
-        if(ListList.moveToFirst()){
-            do{
-                String name = ListList.getString(ListList.getColumnIndex("listname"));
-                int listid = ListList.getInt(ListList.getColumnIndex("id"));
-                int countAll = ListList.getInt(ListList.getColumnIndex("countAll"));
-                int countFinish = ListList.getInt(ListList.getColumnIndex("countFinish"));
-                int load = 0;
-                if(countAll != 0){
-                    load = countFinish * 100 / countAll;
-                }
-                Map<String,Object> map = new HashMap<>();
-                map.put("id",listid);
-                map.put("title",name);
-                map.put("info",countFinish + "完成  " + (countAll-countFinish) + "待办");
-                map.put("image",load_icon.getResourceId(load / 10 , 0));
-                searchResult.add(map);
-            } while (ListList.moveToNext());
-        }
-        ListList.close();
-        db.close();
-        return searchResult;
     }
 }

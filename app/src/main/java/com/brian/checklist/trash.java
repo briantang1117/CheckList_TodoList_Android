@@ -35,7 +35,7 @@ public class trash extends AppCompatActivity implements View.OnClickListener {
 
     //获取数据库中回收站数据
     public List<Map<String, Object>> getData() {
-        return db.queryList(1);
+        return db.queryList(0,1,null);
     }
 
 

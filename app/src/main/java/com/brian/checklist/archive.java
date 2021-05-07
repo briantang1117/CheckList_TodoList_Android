@@ -34,7 +34,7 @@ public class archive extends AppCompatActivity implements View.OnClickListener {
     }
 
     public List<Map<String, Object>> getData() {
-        return db.queryList(2);
+        return db.queryList(0,2,null);
     }
 
     //OnClick

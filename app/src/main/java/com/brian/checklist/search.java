@@ -72,7 +72,7 @@ public class search extends AppCompatActivity {
     }
 
     public List<Map<String ,Object>> getData(String name){
-        return db.searchList(name);
+        return db.queryList(1,0,name);
     }//从db中查找
 
     //back

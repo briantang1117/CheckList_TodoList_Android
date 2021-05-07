@@ -81,14 +81,11 @@ public class HomeFragment extends Fragment {
 
         ImageView bt_search = root.findViewById(R.id.btn_search);
 
-        bt_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent();
-                intent.setClass(getActivity(), search.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
-            }
+        bt_search.setOnClickListener(v -> {
+            Intent intent=new Intent();
+            intent.setClass(getActivity(), search.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.trans_in, R.anim.no_anim);
         });
 
         return root;
@@ -96,7 +93,7 @@ public class HomeFragment extends Fragment {
 
     //从数据库获取data
     public List<Map<String, Object>> getData() {
-        return db.queryList(0);
+        return db.queryList(0,0,null);
     }
 
 

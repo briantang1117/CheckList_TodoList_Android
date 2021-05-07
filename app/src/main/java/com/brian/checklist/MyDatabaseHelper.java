@@ -13,6 +13,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             "listname text," +
             "countAll integer," +
             "countFinish integer," +
+            "deadline integer,"+
             "status integer)";
 
     public static final String CREATE_Content = "create table Content(" +
