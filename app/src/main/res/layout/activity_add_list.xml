@@ -76,26 +76,29 @@
             android:id="@+id/listTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:background="@drawable/edit_normal"
             android:hint="@string/dateplaceholder"
+            android:textColor="@color/textColor"
             android:textColorHint="@color/grey117"
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@+id/listName" />
 
 
         <EditText
             android:id="@+id/listName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:background="@drawable/edit_normal"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:hint="@string/addplaceholder"
             android:textColorHint="@color/grey117"
             android:importantForAutofill="no"
@@ -103,7 +106,10 @@
             android:textAlignment="center"
             android:textCursorDrawable="@drawable/coursor_normal"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/listTime" />
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
