@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +59,15 @@ public class MyDatabaseDAO {
         values.put("status", status);
         db.update("List", values, "id=" + listId, null);
         db.update("Content", values, "listid=" + listId, null);
+        values.clear();
+    }
+
+    public void updateListNamedate(int listId, String listName, Long listDate) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
+        ContentValues values = new ContentValues();
+        values.put("listname", listName);
+        values.put("deadline", listDate);
+        db.update("List", values, "id=" + listId, null);
         values.clear();
     }
 
@@ -139,13 +149,18 @@ public class MyDatabaseDAO {
         return result;
     }
 
-    public String queryListInfo(int listId) {
+    public Map<String, Object> queryListInfo(int listId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();//获取数据库
+        Map<String, Object> map = new HashMap<>();
         Cursor listname = db.query("List", null, "id=" + listId, null, null, null, null);
         listname.moveToFirst();
         String listName = listname.getString(listname.getColumnIndex("listname"));
+        Long ddl = listname.getLong(listname.getColumnIndex("deadline"));//截止时间戳
+        //Log.d("listname",listName);
+        map.put("listName",listName);
+        map.put("ddl",ddl);
         listname.close();
-        return listName;
+        return map;
     }
 
     public List<Map<String, Object>> queryContent(int listId) {

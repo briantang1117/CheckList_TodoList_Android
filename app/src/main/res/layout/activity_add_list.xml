@@ -38,6 +38,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -64,7 +65,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_addicon_large"
             app:layout_constraintEnd_toEndOf="parent"

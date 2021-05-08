@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckList">
         <activity
+            android:name=".updatelist"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".search"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".archive" />
@@ -18,7 +21,7 @@
         <activity android:name=".about" />
         <activity
             android:name=".ListContent"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".AddListActivity"
             android:windowSoftInputMode="adjustResize" />

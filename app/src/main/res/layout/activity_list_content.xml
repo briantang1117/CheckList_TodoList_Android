@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="106dp"
+            android:layout_marginEnd="151dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -104,12 +104,28 @@
             app:layout_constraintTop_toTopOf="@id/titletext"
             app:tint="@color/archive"
             tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/btn_updateList"
+            android:layout_marginEnd="16dp"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:padding="4dp"
+            android:background="@drawable/icon_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_btn_update_21"
+            app:layout_constraintBottom_toBottomOf="@id/titletext"
+            app:layout_constraintEnd_toStartOf="@id/btn_MoveToArchive"
+            app:layout_constraintTop_toTopOf="@id/titletext"
+            app:tint="@color/recover"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:divider="@null"
         android:overScrollMode="never"
         android:scrollbars="none"
