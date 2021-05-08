@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,14 +69,14 @@ public class MyDatabaseDAO {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         @SuppressLint("Recycle") TypedArray load_icon = mcontext.getResources().obtainTypedArray(R.array.load_icon);
         if (method == 0) {
-            listList = db.query("List", null, "status=" + status, null, null, null, null);
+            listList = db.query("List", null, "status=" + status, null, null, null, "deadline");
         } else {
             listList = db.rawQuery("select * from List where status = 0 and listname like '%" + listname + "%'", null);
         }
         if (listList.moveToFirst()) {
             do {
                 //然后通过Cursor的getColumnIndex()获取某一列中所对应的位置的索引
-                String ExtraString = "";
+                String ExtraString;
                 int ddlstatus = 0, isFinish = 0;
                 Map<String, Object> map = new HashMap<>();
                 String name = listList.getString(listList.getColumnIndex("listname"));
@@ -92,27 +94,33 @@ public class MyDatabaseDAO {
                 }
                 map.put("image", load_icon.getResourceId(load / 10, 0));
                 //时间计算
-                Long ddl = listList.getLong(listList.getColumnIndex("deadline"));//截止时间戳
-                Date nowTime = new Date(System.currentTimeMillis());
-                String todayDate = sdf.format(nowTime);
-                long todayTimeStamp = 0;
-                try {
-                    todayTimeStamp = sdf.parse(todayDate).getTime() / 1000;//今天的时间戳
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (ddl > todayTimeStamp) {//没过期 返回剩余天数
-                    long diff = ddl - todayTimeStamp;
-                    long days = diff / (60 * 60 * 24);
-                    ExtraString = String.valueOf(days) + "天后";
+                if (isFinish != 1) {
+                    Long ddl = listList.getLong(listList.getColumnIndex("deadline"));//截止时间戳
+                    Date nowTime = new Date(System.currentTimeMillis());
+                    String todayDate = sdf.format(nowTime);
+                    long todayTimeStamp = 0;
+                    try {
+                        todayTimeStamp = sdf.parse(todayDate).getTime() / 1000;//今天的时间戳
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (ddl > todayTimeStamp) {//没过期 返回剩余天数
+                        long diff = ddl - todayTimeStamp;
+                        long days = diff / (60 * 60 * 24);
+                        ExtraString = days + "天后";
 
-                } else if (ddl == todayTimeStamp) {//当天 返回"今天"
-                    ExtraString = "今天";
-                } else {//过期了 返回不一样的图片，暂无
-                    ExtraString = "已过期";
-                    ddlstatus = 1;
+                    } else if (ddl == todayTimeStamp) {//当天 返回"今天"
+                        ExtraString = "今天";
+                    } else {//过期了 返回不一样的图片，暂无
+                        long diff = todayTimeStamp - ddl;
+                        long days = diff / (60 * 60 * 24);
+                        ExtraString = "已过期" + days + "天";
+                        ddlstatus = 1;
+                    }
+                    //时间结束
+                } else {
+                    ExtraString = "已完成";
                 }
-                //时间结束
                 map.put("ddl", ddlstatus);
                 map.put("isFinish", isFinish);
                 map.put("info", countFinish + "完成  " + (countAll - countFinish) + "待办 " + ExtraString);
@@ -121,6 +129,13 @@ public class MyDatabaseDAO {
         }
         listList.close();
         db.close();
+        //排序
+        if (!result.isEmpty()) {
+            Collections.sort(result, (object1, object2) -> {
+                //根据文本排序
+                return (int)object1.get("isFinish")-(int)object2.get("isFinish");
+            });
+        }
         return result;
     }
 
