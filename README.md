@@ -3,11 +3,11 @@
 ## 项目介绍
 “CheckList 清单”是一款轻量级的待办清单工具类应用，它可以更好的帮您制定计划、安排日程规划、行前准备、甚至是购物清单，使您的生活有条不紊。   
 最新版下载请点击：  
-https://gitee.com/briantang/CheckList_Android/attach_files/695047/download/CheckList-v1.0.6.apk 
+https://gitee.com/briantang/CheckList_Android/attach_files/705161/download/CheckList-v1.0.7-34.apk
 ## 项目成员
 - UI/UX：许禾昕，唐丰圆
 - 应用开发：唐丰圆，许禾昕
-![项目介绍](https://images.gitee.com/uploads/images/2021/0511/113551_a8320f20_8852279.jpeg "mainImg.jpg")
+![项目介绍](https://images.gitee.com/uploads/images/2021/0518/195147_74c23e2d_8852279.jpeg "Checklist.jpg")
 ## 使用说明
 ### 添加清单
 1. 轻点导航栏中部深蓝色添加按钮；
