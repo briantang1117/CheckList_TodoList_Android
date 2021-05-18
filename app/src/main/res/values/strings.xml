@@ -10,8 +10,8 @@
     <string name="dateplaceholder">截止时间</string>
     <string name="abouttitle">关于 CheckList 清单</string>
     <string name="copyright_cn">唐丰圆 许禾昕 版权所有</string>
-    <string name="copyright_us">Copyright © 2021 T&amp;H. All Right Reserved.</string>
-    <string name="version">Version 1.0.6 正式版</string>
+    <string name="copyright_us">Copyright © 2021 Tang F. and Xu H. All Right Reserved.</string>
+    <string name="version">Version 1.0.7 正式版</string>
     <string name="setting_masterplate">模版管理</string>
     <string name="setting_archive">已归档</string>
     <string name="setting_trash">回收站</string>
